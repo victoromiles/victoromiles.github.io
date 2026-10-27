@@ -27,7 +27,8 @@
   <ul>
     <li><b>Gmail (somente leitura)</b>: procura e-mails de bancos e contas para importar faturas, extratos e boletos
       e para mostrar alertas ao próprio usuário. O mapp nunca envia, apaga ou altera e-mails.</li>
-    <li><b>Google Agenda</b>: mostra os eventos e cria ou edita eventos quando o usuário pede.</li>
+    <li><b>Google Agenda</b>: mostra os próximos eventos e cria um evento só quando o usuário confirma na tela.
+      O mapp não altera nem apaga eventos.</li>
     <li><b>Google Drive (pasta privada do app)</b>: se o usuário ligar a opção, guarda um resumo do mês cifrado
       (AES-256), que só os aparelhos do próprio usuário conseguem abrir. O mapp não vê nenhum outro arquivo do Drive.</li>
     <li><b>Nome, e-mail e foto da conta</b>: para mostrar quem está conectado.</li>
@@ -38,6 +39,9 @@
     <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de Dados do Usuário dos
     Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado. Os dados do Google não são usados para
     publicidade nem para treinar modelos de inteligência artificial.</p>
+  <p>Se o usuário ligar a assistente do app (R2D2, com a chave de API do próprio usuário), o remetente, o assunto e
+    um trecho dos e-mails, e os eventos da agenda, são enviados à API da Anthropic só quando ele pede um resumo ou
+    faz uma pergunta, e só para responder a esse pedido. Sem a assistente ligada, nada disso sai do computador.</p>
 
   <h2>Como remover o acesso</h2>
   <p>O usuário pode desconectar o Google no próprio mapp (Ajustes › Gmail) ou revogar o acesso a qualquer momento
