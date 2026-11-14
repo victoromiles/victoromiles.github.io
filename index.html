@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mapp · My All-in-one Personal Platform</title>
+<meta name="description" content="Finanças, agenda, e-mails, notícias, clima, mercado e um agente pessoal num app só, no PC e no celular. Projeto pessoal, só para convidados.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#F7F7F5">
+<meta property="og:type" content="website">
+<meta property="og:title" content="mapp · My All-in-one Personal Platform">
+<meta property="og:description" content="Finanças, agenda, e-mails, notícias, clima, mercado e um agente pessoal num app só.">
+<meta property="og:url" content="https://usemapp.tech/">
+<meta property="og:image" content="https://usemapp.tech/img/capa.jpg">
+<link rel="canonical" href="https://usemapp.tech/">
+<link rel="icon" href="icone.png">
+<!-- GERADO por docs/site/gerar.py a partir de docs/site/modelo.html: não edite este arquivo à mão.
+     Cores só da paleta do app (app/web/app.css, bento neutro de 11/2026) e do guia de marca. Ícones: os mesmos desenhos do app.
+     Sem prints: as telas são um app de demonstração feito aqui mesmo, com dados INVENTADOS. Nada é carregado de fora deste site. -->
+<style>
+:root{
+  /* o tom claro do app (bento neutro, 11/2026): fundo #F7F7F5, bandeja #EEEEEA, cartão branco com sombra de duas camadas */
+  --pagina:#F7F7F5; --faixa:#EEEEEA; --cartao:#FFFFFF; --cartao2:#FFFFFF; --ficha:#F2F2EF; --seg:#E3E3DE; --knob:#FFFFFF;
+  --tx:#141416; --tx2:#6E6E69; --linha:#E6E6E1;
+  --cinza:#2B2D31; --roxo:#B096FF; --roxo-app:#A07EFF; --roxo-forte:#6D4FD1; --roxo-suave:#F0EAFE; --roxo-noite:#3B3260; --sobre-roxo:#1E1B2E;
+  --verde:#5ADF9C; --verde-s:#E6F6EE; --verde-t:#2E8B5E;
+  --azul:#6AAAFF;  --azul-s:#E9F1FD;  --azul-t:#3B6FC4;
+  --laranja:#FFB257; --laranja-s:#FEF3E2; --laranja-t:#A86A12;
+  --rosa:#FF8AA5;  --rosa-s:#FDEDEF;  --rosa-t:#C2475A;
+  --ciano:#55D6EC; --ciano-s:#E3F6F9;
+  --destaque:#0F0F12; --destaque-fg:#FFFFFF; --destaque-mu:#A3A3A8;
+  --sombra-c:0 1px 2px rgba(20,20,30,.05),0 10px 30px rgba(20,20,30,.05);
+  --sombra-in:0 1px 2px rgba(20,20,30,.06),0 5px 16px rgba(20,20,30,.05);
+  --sombra-knob:0 1px 2px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.06);
+  --sombra:0 1px 2px rgba(20,20,30,.05),0 24px 60px rgba(20,20,30,.12);
+  /* os movimentos do app (MV.anima): mola, suave e expo */
+  --mola:cubic-bezier(.34,1.4,.64,1); --suave:cubic-bezier(.22,1,.36,1); --expo:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+/* o site abre sempre no claro; o escuro vem só do botão da lua e segue o Escuro do app (#2B2D31, bandeja #313338, cartão #383A40) */
+:root[data-theme="dark"]{
+  --pagina:#2B2D31; --faixa:#313338; --cartao:#313338; --cartao2:#383A40; --ficha:#383A40; --seg:#313338; --knob:#41434A;
+  --tx:#F2F3F5; --tx2:#B5BAC1; --linha:#3F4147;
+  --roxo-suave:rgba(176,150,255,.16); --roxo-forte:#B096FF;
+  --verde-s:rgba(90,223,156,.14); --verde-t:#5ADF9C; --azul-s:rgba(106,170,255,.14); --azul-t:#6AAAFF;
+  --laranja-s:rgba(255,178,87,.14); --laranja-t:#FFB257; --rosa-s:rgba(255,138,165,.14); --rosa-t:#FF8AA5; --ciano-s:rgba(85,214,236,.14);
+  --destaque:#B096FF; --destaque-fg:#FFFFFF; --destaque-mu:rgba(255,255,255,.86);
+  --sombra-c:inset 0 0 0 1px rgba(255,255,255,.04); --sombra-in:inset 0 0 0 1px rgba(255,255,255,.04);
+  --sombra-knob:0 1px 2px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.06); --sombra:0 24px 60px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+main{overflow-x:clip}
+body{margin:0;background:var(--pagina);color:var(--tx);font:16px/1.5 "Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s}
+h1,h2,h3{font-family:"Segoe UI Variable Display","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;font-weight:750;letter-spacing:-.02em;margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.emo{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-weight:400}
+[data-i] svg,.ag svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.miolo{max-width:1120px;margin:0 auto;padding:0 24px}
+.sec{padding:120px 0}
+.faixa{background:var(--faixa)}
+.sobretit{font-size:15px;font-weight:650;color:var(--roxo-forte);margin:0 0 12px}
+.tit{font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.035em}
+.lead{font-size:clamp(17px,2vw,21px);color:var(--tx2);max-width:640px;margin:18px 0 0}
+.centro{text-align:center}.centro .lead{margin-left:auto;margin-right:auto}
+
+/* ---------- botões ---------- */
+.bt{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 26px;font-weight:650;font-size:16px;border:0;cursor:pointer;transition:transform .35s var(--mola),box-shadow .2s,background .2s}
+.bt:hover{transform:translateY(-2px)}
+.bt:active{transform:scale(.96)}
+.bt.p{background:var(--tx);color:var(--pagina)}
+.bt.r{background:var(--roxo);color:#fff;box-shadow:0 10px 30px rgba(176,150,255,.35)}
+.bt.o{color:var(--roxo-forte);background:none}
+.bt.o::after{content:"›";font-size:22px;line-height:0;transition:transform .2s}.bt.o:hover::after{transform:translateX(4px)}
+
+/* ---------- topo ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s}
+.nav.solido{background:var(--pagina);box-shadow:0 1px 0 var(--linha)}
+.nav .miolo{display:flex;align-items:center;gap:28px;height:60px}
+.marca{display:flex;align-items:center;gap:10px;font-weight:750;font-size:19px;letter-spacing:-.02em}
+.marca span{text-box:trim-both ex alphabetic}
+@supports not (text-box:trim-both ex alphabetic){.marca span{transform:translateY(-.14em)}}
+.nav nav{display:flex;gap:24px;margin-left:auto;font-size:14.5px;color:var(--tx2)}
+.nav nav a{transition:color .2s}.nav nav a:hover,.nav nav a.ativo{color:var(--tx)}
+.nav .bt{padding:8px 16px;font-size:14px}
+.nav .entrar{align-items:baseline}
+.nav .entrar small{font-weight:500;font-size:11.5px;opacity:.8}
+@media(max-width:520px){.nav .entrar small{display:none}}
+.tema{width:36px;height:36px;border-radius:50%;border:0;background:var(--cartao);box-shadow:var(--sombra-knob);color:var(--tx);cursor:pointer;display:grid;place-items:center}
+.tema svg{width:18px;height:18px}
+
+/* ---------- hero ---------- */
+.hero{padding:150px 0 40px;text-align:center;position:relative}
+.hero .sig{margin:0 auto 26px;border-radius:20px;box-shadow:0 16px 40px rgba(43,45,49,.18);animation:entra 1s var(--mola) both}
+.hero h1{font-size:clamp(48px,9vw,104px);line-height:.98;letter-spacing:-.045em}
+.hero h1 .gira{display:inline-block;color:var(--roxo-forte)}
+.hero h1 .gira span{display:inline-block;animation:troca .6s var(--expo)}
+.hero .lead{margin:24px auto 34px;max-width:620px}
+.botoes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palco{position:relative;max-width:1060px;margin:70px auto 0}
+.palco .aviso-ex{position:absolute;left:50%;bottom:-58px;transform:translateX(-50%);font-size:13px;color:var(--tx2);white-space:nowrap}
+.bolha{position:absolute;z-index:3;background:var(--cartao2);border-radius:18px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:var(--sombra);display:flex;align-items:center;gap:8px;white-space:nowrap;opacity:0;transform:translateY(14px) scale(.9);transition:opacity .4s var(--suave),transform .6s var(--mola)}
+.bolha.on{opacity:1;transform:none}
+.bolha .emo{font-size:20px}
+/* variante A: PC + celular; B: celular no centro com as bolhas; C: só o texto (a demonstração fica em "Experimente") */
+.hA .palco .fone-h{position:absolute;right:-3%;bottom:-9%;width:25%;z-index:2}
+.hA .bolha.b1{left:-4%;top:62%}.hA .bolha.b2{right:-4%;top:-5%}.hA .bolha.b3{left:30%;bottom:-6%}
+.hB .palco{max-width:1000px;min-height:640px}
+.hB .palco .pc-h{display:none}
+.hB .palco .fone-h{width:330px;margin:0 auto;position:relative;z-index:2}
+.hB .bolha.b1{left:1%;top:18%}.hB .bolha.b2{right:1%;top:40%}.hB .bolha.b3{left:5%;bottom:20%}
+.hC .palco{display:none}
+
+/* ---------- moldura dos aparelhos ---------- */
+.moldura-pc{border-radius:14px;background:var(--cinza);padding:4px;box-shadow:var(--sombra)}
+.moldura-cel{border-radius:42px;background:var(--cinza);padding:4px;box-shadow:var(--sombra)}
+.tela-esc{position:relative;overflow:hidden;width:100%}
+/* no escuro do site a moldura tem a mesma cor do fundo: um fio da cor da linha separa as duas */
+:root[data-theme="dark"] :is(.moldura-pc,.moldura-cel,.hero .sig){box-shadow:0 0 0 1px #3F4147,var(--sombra)}
+.tela-esc>.d{position:absolute;left:0;top:0;transform-origin:0 0}
+.moldura-pc .tela-esc{border-radius:10px;aspect-ratio:1100/690}
+.moldura-cel .tela-esc{border-radius:38px;aspect-ratio:360/760}
+
+/* ================= DEMONSTRAÇÃO (o app de mentira) =================
+   Tokens copiados do Claro do app (bento neutro). No escuro do site, vira o Escuro do app. */
+.d{--bg:#F7F7F5;--band:#EEEEEA;--in:#FFFFFF;--seg:#E3E3DE;--knob:#FFFFFF;--t:#141416;--m:#6E6E69;--li:#E6E6E1;
+   --q-roxo:#F0EAFE;--q-verde:#E6F6EE;--q-azul:#E9F1FD;--q-laranja:#FEF3E2;--q-rosa:#FDEDEF;--q-ciano:#E3F6F9;
+   --sin:var(--sombra-in);--sk:var(--sombra-knob);
+   background:var(--bg);color:var(--t);font-size:13px;line-height:1.35;text-align:left;user-select:none;-webkit-user-select:none}
+:root[data-theme="dark"] .d{--bg:#2B2D31;--band:#313338;--in:#383A40;--seg:#313338;--knob:#41434A;--t:#F2F3F5;--m:#B5BAC1;--li:#3F4147;
+   --q-roxo:rgba(176,150,255,.16);--q-verde:rgba(90,223,156,.14);--q-azul:rgba(106,170,255,.14);--q-laranja:rgba(255,178,87,.14);--q-rosa:rgba(255,138,165,.14);--q-ciano:rgba(85,214,236,.14)}
+.d.pc{width:1100px;height:690px;display:grid;grid-template-columns:214px 1fr;gap:18px;padding:16px}
+.d.cel{width:360px;height:760px;display:flex;flex-direction:column}
+.d b{font-weight:700}
+.d .mu{color:var(--m)}
+.d .q{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;font-size:18px}
+.d .q.roxo{background:var(--q-roxo)}.d .q.verde{background:var(--q-verde)}.d .q.azul{background:var(--q-azul)}.d .q.laranja{background:var(--q-laranja)}.d .q.rosa{background:var(--q-rosa)}.d .q.ciano{background:var(--q-ciano)}
+/* menu lateral (PC) */
+.d-menu{background:var(--band);border-radius:22px;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.d-ola small{display:block;font-size:10px;letter-spacing:.18em;font-weight:650;color:var(--m)}
+.d-ola b{font-size:21px;letter-spacing:-.02em}
+.d-seg{position:relative;display:grid;grid-template-columns:1fr 1fr;background:var(--seg);border-radius:13px;padding:3px;margin:12px 0 8px}
+.d-seg i{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:10px;background:var(--knob);box-shadow:var(--sk);transition:transform .55s var(--mola)}
+.d-seg.dir i{transform:translateX(100%)}
+.d-seg button{position:relative;border:0;background:none;padding:7px 0;font-size:12.5px;font-weight:600;color:var(--m);cursor:pointer;transition:color .3s}
+.d-seg button.on{color:var(--t)}
+.d-itens{display:flex;flex-direction:column;gap:2px}
+.d-item{display:flex;align-items:center;gap:10px;border:0;background:none;border-radius:12px;padding:6px 8px;font-size:13.5px;font-weight:550;cursor:pointer;text-align:left;transition:background .25s,box-shadow .25s;animation:entraEsq .45s var(--expo) both}
+.d-item .mq{width:26px;height:26px;border-radius:9px;background:var(--in);box-shadow:var(--sk);display:grid;place-items:center}
+.d-item .mq svg{width:15px;height:15px}
+.d-item.on{background:var(--in);box-shadow:var(--sin)}
+.d-item.on .mq{background:var(--q-roxo);color:#6D4FD1;box-shadow:none}
+:root[data-theme="dark"] .d-item.on .mq{color:#B096FF}
+.d-perfil{margin-top:auto;background:var(--in);border-radius:16px;padding:9px;display:flex;align-items:center;gap:9px;box-shadow:var(--sin)}
+.d-perfil .av{width:32px;height:32px;border-radius:50%;background:#A07EFF;color:#fff;display:grid;place-items:center}
+.d-perfil .av svg{width:17px;height:17px}
+.d-perfil small{display:block;color:var(--m);font-size:10.5px}
+/* conteúdo */
+.d-tela{overflow:hidden;position:relative;padding:6px 2px 0}
+.d-tela div{min-width:0}   /* sem isto, o texto com reticências alarga a coluna da grade */
+.d-tela h2{font-size:30px;letter-spacing:-.8px;line-height:1.1}
+.d-tela .sub{color:var(--m);font-size:13.5px;margin:2px 0 14px}
+.d-entra{animation:entraTela .55s var(--expo) both}
+.d-band{background:var(--band);border-radius:22px;padding:10px}
+.d-band>h4,.d-cab{display:flex;align-items:center;gap:7px;margin:2px 4px 9px;font-size:14px;font-weight:700}
+.d-cab small{margin-left:auto;font-weight:500;color:var(--m);font-size:11.5px}
+.d-in{background:var(--in);border-radius:14px;box-shadow:var(--sin);padding:11px 12px}
+.d-lin{display:flex;align-items:center;gap:10px}
+.d-lin+.d-lin{margin-top:7px}
+.d-lin .tx{min-width:0;flex:1}
+.d-lin .tx b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-lin .tx small{display:block;color:var(--m);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-lin .val{font-weight:700;font-size:13px;white-space:nowrap}
+.d-chega{animation:chega .6s var(--mola) both}
+/* clima (opção B do app) */
+.d-clima .agora{display:grid;grid-template-columns:1fr auto;align-items:center}
+.d-clima .temp{font-size:44px;font-weight:750;letter-spacing:-2px;line-height:1}
+.d-clima .grande{font-size:52px;line-height:1;animation:flutua 5s ease-in-out infinite}
+.d-clima .onde{grid-column:1/-1;font-size:12px;margin-top:8px;display:flex;gap:6px;align-items:center}
+.d-horas{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:4px;background:var(--seg);border-radius:14px;margin-top:8px}
+.d-horas i{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px - 14px)/8);border-radius:11px;background:var(--knob);box-shadow:var(--sk);transition:transform .9s var(--mola)}
+.d-horas span{position:relative;text-align:center;font-size:10.5px;color:var(--m);padding:5px 0 4px;animation:chega .5s var(--expo) both}
+.d-horas span b{display:block;color:var(--t);font-size:12px}
+.d-horas span em{display:block;font-style:normal;font-size:14px;line-height:1.3}
+.d-horas span:first-of-type{color:var(--t);font-weight:700}
+.d-pil{display:inline-block;border-radius:999px;padding:2px 8px;font-size:10.5px;font-weight:700;background:var(--q-roxo);color:#6D4FD1}
+:root[data-theme="dark"] .d-pil{color:#B096FF}
+/* finanças */
+.d-kpis{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;gap:10px}
+.d-kpi{background:var(--in);border-radius:16px;box-shadow:var(--sin);padding:12px}
+.d-kpi small{display:flex;gap:6px;align-items:center;color:var(--m);font-size:11px}
+.d-kpi .v{font-size:21px;font-weight:750;letter-spacing:-.5px;margin-top:6px;font-variant-numeric:tabular-nums}
+.d-kpi.dest{background:var(--destaque);color:var(--destaque-fg);box-shadow:none}
+.d-kpi.dest small{color:var(--destaque-mu)}
+.d-barra{height:6px;border-radius:9px;background:rgba(255,255,255,.18);margin-top:9px;overflow:hidden}
+.d-barra i{display:block;height:100%;width:65%;background:#A07EFF;border-radius:9px;transform-origin:left;animation:cresceX 1.1s var(--expo) .3s both}
+.d-graf{display:flex;align-items:flex-end;gap:12px;height:150px;padding:8px 6px 0}
+.d-graf div{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end;font-size:10.5px;color:var(--m)}
+.d-graf div i{width:70%;max-width:34px;border-radius:7px 7px 4px 4px;background:#A07EFF;transform-origin:bottom;animation:cresceY .9s var(--mola) both}
+.d-graf div:last-child i{background:repeating-linear-gradient(-45deg,var(--q-roxo) 0 4px,transparent 4px 8px);outline:1.5px dashed #A07EFF;outline-offset:-1.5px}
+.d-rosca{width:118px;height:118px;border-radius:50%;margin:4px auto 10px;display:grid;place-items:center;animation:gira .9s var(--expo) both;
+  background:conic-gradient(#A07EFF 0 34%,#6AAAFF 0 55%,#5ADF9C 0 70%,#FFB257 0 82%,#FF8AA5 0 92%,#CFC9D6 0)}
+.d-rosca::after{content:"";width:78px;height:78px;border-radius:50%;background:var(--in)}
+.d-leg{display:flex;align-items:center;gap:7px;font-size:11.5px}.d-leg+.d-leg{margin-top:4px}
+.d-leg i{width:8px;height:8px;border-radius:3px}.d-leg span{margin-left:auto;font-weight:700}
+.d-ok{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:700;background:var(--q-verde);color:#2E8B5E;animation:pop .6s var(--mola) both}
+:root[data-theme="dark"] .d-ok{color:#5ADF9C}
+.d-lendo{height:6px;border-radius:9px;background:var(--seg);overflow:hidden;margin:8px 0 2px}
+.d-lendo i{display:block;height:100%;background:#A07EFF;border-radius:9px;transform-origin:left;animation:cresceX 1.3s var(--suave) both}
+/* agenda */
+.d-semana{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.d-dia{background:var(--in);border-radius:14px;box-shadow:var(--sin);padding:8px 7px;min-height:330px}
+.d-dia small{display:block;color:var(--m);font-size:10.5px}.d-dia b{font-size:17px}
+.d-dia.hoje{outline:2px solid #A07EFF;outline-offset:-2px}
+.d-ev{border-radius:9px;padding:6px 7px;margin-top:7px;font-size:10.5px;font-weight:600;animation:chega .55s var(--mola) both}
+.d-ev small{font-weight:500}
+.d-dias{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.d-dias span{text-align:center;border-radius:12px;padding:6px 0;background:var(--in);box-shadow:var(--sin);font-size:10.5px;color:var(--m);animation:chega .45s var(--mola) both}
+.d-dias span b{display:block;font-size:15px;color:var(--t)}
+.d-dias span.on{background:#A07EFF;color:#fff;box-shadow:none}.d-dias span.on b{color:#fff}
+/* notícias */
+.d-temas{display:flex;gap:14px;margin-bottom:14px}
+.d-tema-c{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:600;border:0;background:none;cursor:pointer}
+.d-tema-c span{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:23px;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--li);transition:box-shadow .3s}
+.d-tema-c.on span{box-shadow:0 0 0 2px var(--bg),0 0 0 4px #A07EFF}
+.d-capa{border-radius:16px;height:120px;display:flex;align-items:flex-end;padding:12px;font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;background:linear-gradient(160deg,#6D4FD1,#3B3260)}
+/* celular */
+.d-cel-topo{display:grid;place-items:center;padding:16px 0 8px}
+.d-cel-topo svg{width:26px;height:26px}
+.d-cel-corpo{flex:1;overflow:hidden;padding:0 12px;display:flex;flex-direction:column;gap:10px}
+.d-barra-cel::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:24px;background:var(--in);-webkit-mask-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 48'><path d='M0 0H92Q82 0 82 10V21A27 27 0 0 1 55 48H37A27 27 0 0 1 10 21V10Q10 0 0 0Z'/></svg>"), linear-gradient(#000 0 0);-webkit-mask-size:92px 48px, 100% 100%;-webkit-mask-position:50% 0, 0 0;-webkit-mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 48'><path d='M0 0H92Q82 0 82 10V21A27 27 0 0 1 55 48H37A27 27 0 0 1 10 21V10Q10 0 0 0Z'/></svg>"), linear-gradient(#000 0 0);mask-size:92px 48px, 100% 100%;mask-position:50% 0, 0 0;mask-repeat:no-repeat;mask-composite:exclude;}   /* o côncavo do agente, como no app */
+.d-barra-cel{isolation:isolate;margin:8px 10px 10px;height:62px;border-radius:24px;box-shadow:var(--sombra-c),0 6px 20px rgba(20,20,30,.08);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 6px;position:relative}
+.d-bb{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:600;color:var(--t);cursor:pointer;border-radius:16px;padding:6px 0;position:relative;z-index:1;transition:color .3s}
+.d-bb svg{width:20px;height:20px}
+.d-bb.on{color:#6D4FD1}
+:root[data-theme="dark"] .d-bb.on{color:#B096FF}
+.d-bb-knob{position:absolute;top:7px;bottom:7px;left:6px;width:calc((100% - 12px)/5);border-radius:16px;background:var(--q-roxo);transition:transform .55s var(--mola)}
+.d-bb.d-ag{transform:translateY(-19px)}
+.d-bb.d-ag span{width:60px;height:60px;border-radius:21px;background:#A07EFF;color:#fff;display:grid;place-items:center;}   /* o agente atravessa a barra, no côncavo, como no app */
+.d-bb.d-ag span svg{width:38px;height:38px}
+.d-mais{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.d-lad{border:0;background:var(--in);box-shadow:var(--sin);border-radius:16px;padding:12px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10.5px;font-weight:600;cursor:pointer;animation:chega .5s var(--mola) both}
+.d-lad span{width:36px;height:36px;border-radius:12px;background:var(--bg);display:grid;place-items:center}
+.d-lad span svg{width:18px;height:18px}
+.d-msg{max-width:84%;padding:9px 12px;border-radius:17px;font-size:12.5px;animation:chega .5s var(--mola) both}
+.d-msg.eu{align-self:flex-end;background:#A07EFF;color:#1E1B2E;border-bottom-right-radius:5px}
+.d-msg.ele{align-self:flex-start;background:var(--in);box-shadow:var(--sin);border-bottom-left-radius:5px}
+/* o cursor do tour e o toque */
+.d-cursor{position:absolute;left:0;top:0;width:26px;height:26px;z-index:20;pointer-events:none;opacity:0;transition:transform .85s var(--expo),opacity .3s;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.d-cursor.on{opacity:1}
+.d-cursor.dedo{width:34px;height:34px;border-radius:50%;background:rgba(160,126,255,.35);box-shadow:inset 0 0 0 2px rgba(255,255,255,.8);filter:none}
+.d-toque{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:rgba(160,126,255,.45);z-index:19;pointer-events:none;animation:toque .6s var(--expo) forwards}
+
+/* ---------- esteira de logos ---------- */
+.esteira{padding:110px 0 30px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.trilho{display:flex;gap:14px;width:max-content;animation:anda 46s linear infinite}
+.trilho.volta{animation-direction:reverse;margin-top:14px;animation-duration:52s}
+.esteira:hover .trilho{animation-play-state:paused}
+.ic{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;flex:none;transition:transform .35s var(--mola)}
+.ic:hover{transform:translateY(-4px) rotate(-4deg)}
+.ic svg{width:28px;height:28px}
+.ic .emo{font-size:28px;line-height:1}.b .ic .emo,.pr .ic .emo{font-size:25px}
+.ic.lg svg{width:35px;height:35px}
+.lg0{background:#F0EAFE;color:#A07EFF}.lg1{background:#6D4FD1;color:#F0EAFE}.lg2{background:#2B2D31;color:#B5BAC1}.lg3{background:#DCCEFC;color:#6D4FD1}
+.lg4{background:#2B2D31;color:#B096FF}.lg5{background:#3B3260;color:#B096FF}.lg6{background:#A07EFF;color:#FFFFFF}.lg7{background:#313338;color:#F2F3F5}
+.c0{background:var(--roxo-suave);color:var(--roxo-forte)}.c1{background:var(--verde-s);color:var(--verde-t)}
+.c2{background:var(--azul-s);color:var(--azul-t)}.c3{background:var(--laranja-s);color:var(--laranja-t)}.c4{background:var(--rosa-s);color:var(--rosa-t)}
+
+/* ---------- bento (cartões com peças vivas no lugar dos prints) ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:56px}
+.b{background:var(--cartao);box-shadow:var(--sombra-c);border-radius:32px;padding:34px;position:relative;overflow:hidden;min-height:300px;transition:transform .5s var(--mola),box-shadow .35s}
+.b:hover{transform:translateY(-6px);box-shadow:var(--sombra)}
+.b.l2{grid-column:span 2}.b.l3{grid-column:span 3}.b.l4{grid-column:span 4}
+.b .ic{width:52px;height:52px;border-radius:16px;margin-bottom:22px}
+.b h3{font-size:26px;line-height:1.1;letter-spacing:-.025em}
+.b p{color:var(--tx2);margin:10px 0 0;font-size:16px}
+.b:hover .ic{transform:scale(1.12) rotate(-6deg)}
+.b.l4 .txt{max-width:44%}
+.peca{position:absolute;right:28px;top:34px;bottom:28px;width:48%;background:var(--faixa);border-radius:24px;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.peca .lin{background:var(--cartao2);border-radius:14px;box-shadow:var(--sombra-in);padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:14px;opacity:0;transform:translateY(12px)}
+.peca .lin .q{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none}
+.peca .lin b{display:block;font-size:14px}.peca .lin small{display:block;color:var(--tx2);font-size:12px}
+.peca .lin .v{margin-left:auto;font-weight:700;white-space:nowrap}
+.visivel .peca .lin{animation:chega .6s var(--mola) both}
+.peca .tot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding:6px 6px 2px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--ficha);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600}
+.mini-horas{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;padding:4px;background:var(--seg);border-radius:16px;margin-top:22px}
+.mini-horas i{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px - 10px)/6);border-radius:13px;background:var(--knob);box-shadow:var(--sombra-knob);transition:transform .8s var(--mola)}
+.mini-horas span{position:relative;text-align:center;font-size:12px;color:var(--tx2);padding:6px 0}
+.mini-horas span b{display:block;color:var(--tx);font-size:14px}.mini-horas span em{display:block;font-style:normal;font-size:17px}
+
+/* ---------- agente (baia escura) ---------- */
+.baia{background:#2B2D31;color:#F2F3F5;position:relative;overflow:hidden}
+.baia .sobretit{color:#B096FF}
+.baia .lead{color:#B5BAC1}
+.baia .tit{font-size:clamp(42px,7.5vw,92px)}
+.agente{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;margin-top:64px;align-items:center;position:relative}
+.galeria{display:block}
+.ag{aspect-ratio:1;border-radius:22px;background:#313338;border:1.5px solid transparent;color:#B096FF;display:grid;place-items:center;cursor:pointer;transition:transform .4s var(--mola),background .25s,border-color .25s;position:relative}
+.g-fila{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}.g-fila .ag{width:calc(25% - 9px)}
+.g-nota{margin:18px 0 0;text-align:center;font-size:15px;font-weight:600;color:#B5BAC1}
+.ag svg{width:46%;height:46%}
+.ag:hover{transform:translateY(-4px) scale(1.04);background:#383A40}
+.ag.on{border-color:#B096FF;background:#3B3260}
+.chat{background:#313338;border-radius:32px;padding:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.chat .cab{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid #3F4147}
+.chat .av{width:46px;height:46px;border-radius:15px;background:#3B3260;color:#B096FF;display:grid;place-items:center}
+.chat .av.pula{animation:pula .5s var(--mola)}
+.chat .av svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chat .cab b{display:block;font-size:16px}.chat .cab small{color:#5ADF9C;font-size:12.5px}
+.msgs{display:flex;flex-direction:column;gap:10px;padding-top:16px;min-height:330px}
+.m{max-width:85%;padding:11px 15px;border-radius:20px;font-size:15px;line-height:1.4;animation:chega .5s var(--mola) both}
+.m.eu{align-self:flex-end;background:#B096FF;color:#1E1B2E;border-bottom-right-radius:6px}
+.m.ele{align-self:flex-start;background:#383A40;border-bottom-left-radius:6px}
+.m .ok{display:inline-block;margin-top:8px;background:rgba(90,223,156,.16);color:#5ADF9C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:650}
+.digitando{align-self:flex-start;background:#383A40;border-radius:20px;padding:14px 16px;display:flex;gap:5px}
+.digitando i{width:7px;height:7px;border-radius:50%;background:#B5BAC1;animation:ponto 1.2s infinite}
+.digitando i:nth-child(2){animation-delay:.15s}.digitando i:nth-child(3){animation-delay:.3s}
+.tracos{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:70px;position:relative}
+.tracos>span{border:1px solid #3F4147;border-radius:999px;padding:9px 16px;font-size:15px;color:#F2F3F5}
+
+/* ---------- experimente ---------- */
+.abas{display:inline-flex;background:var(--seg);border-radius:999px;padding:4px;margin-top:34px;position:relative}
+.abas button{border:0;background:none;color:var(--tx2);font-weight:650;font-size:15px;padding:9px 22px;border-radius:999px;cursor:pointer;position:relative;z-index:1;transition:color .25s}
+.abas button.on{color:var(--tx)}
+.abas .pilula{position:absolute;top:4px;bottom:4px;border-radius:999px;background:var(--knob);box-shadow:var(--sombra-knob);transition:left .55s var(--mola),width .55s var(--mola)}
+.vitrine{margin:44px auto 0;max-width:1000px}
+.vitrine.so-cel{max-width:340px}
+.vitrine .moldura-cel{max-width:340px;margin:0 auto}
+.controle{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:22px;color:var(--tx2);font-size:14px;flex-wrap:wrap}
+.controle .bt{padding:9px 18px;font-size:14px;background:var(--cartao2);box-shadow:var(--sombra-knob);color:var(--tx)}
+
+/* ---------- números ---------- */
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.num{background:var(--cartao);box-shadow:var(--sombra-c);border-radius:28px;padding:30px}
+.num b{display:block;font-size:clamp(40px,5vw,60px);font-weight:750;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.num>span{color:var(--tx2);font-size:15.5px;display:block;margin-top:10px}
+
+/* ---------- confiança ---------- */
+.promessas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.pr{background:var(--cartao2);border-radius:28px;padding:30px;box-shadow:var(--sombra-c)}
+.pr .ic{width:52px;height:52px;border-radius:16px;margin-bottom:18px}
+.pr h3{font-size:22px}.pr p{color:var(--tx2);margin:8px 0 0}
+
+/* ---------- como nasceu ---------- */
+.linha-tempo{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;position:relative}
+.passo{position:relative;padding-top:66px}
+.passo .emo{position:absolute;top:0;left:0;width:50px;height:50px;border-radius:16px;background:var(--roxo-suave);display:grid;place-items:center;font-size:24px}
+.passo::before{content:"";position:absolute;left:62px;right:-6px;top:25px;height:2px;background:var(--linha);transform-origin:left;transform:scaleX(0);transition:transform 1s var(--expo) .3s}
+.passo:last-child::before{display:none}
+.passo.visivel::before{transform:scaleX(1)}
+.passo h3{font-size:21px}.passo p{color:var(--tx2);margin:8px 0 0;font-size:15.5px}
+
+/* ---------- fim ---------- */
+.final{background:var(--destaque);color:#fff;border-radius:40px;padding:80px 30px;text-align:center;position:relative;overflow:hidden}
+:root[data-theme="dark"] .final{background:#3B3260}
+.final .tit{color:#fff}.final .lead{color:rgba(255,255,255,.72);margin-left:auto;margin-right:auto}
+.contatos{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.contatos a{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:11px 18px;font-weight:600;font-size:15px;transition:background .2s,transform .35s var(--mola)}
+.contatos a:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.contatos svg{width:18px;height:18px;fill:currentColor}
+.rodape{padding:46px 0 60px;color:var(--tx2);font-size:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;text-align:center}
+.rodape a:hover{color:var(--tx)}
+
+/* ---------- animações ---------- */
+.sobe{opacity:0;transform:translateY(34px);transition:opacity .9s var(--expo),transform .9s var(--expo)}
+.sobe.visivel{opacity:1;transform:none}
+.atraso1{transition-delay:.08s}.atraso2{transition-delay:.16s}.atraso3{transition-delay:.24s}
+@keyframes entra{from{opacity:0;transform:scale(.6) rotate(-20deg)}to{opacity:1;transform:none}}
+@keyframes flutua{0%,100%{translate:0 0}50%{translate:0 -6px}}
+@keyframes troca{from{opacity:0;transform:translateY(.4em)}to{opacity:1;transform:none}}
+@keyframes anda{to{transform:translateX(-50%)}}
+@keyframes chega{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes entraTela{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes entraEsq{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+@keyframes cresceY{from{transform:scaleY(0)}to{transform:none}}
+@keyframes cresceX{from{transform:scaleX(0)}to{transform:none}}
+@keyframes gira{from{transform:rotate(-90deg) scale(.8);opacity:0}to{transform:none;opacity:1}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@keyframes toque{from{transform:scale(.3);opacity:1}to{transform:scale(1.6);opacity:0}}
+@keyframes ponto{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-4px)}}
+@keyframes pula{40%{transform:scale(1.2) rotate(-8deg)}}
+.foto *,.foto *::before,.foto *::after{animation-delay:-30s!important;animation-play-state:paused!important;transition:none!important}
+html.foto{scroll-behavior:auto}.foto .sobe{opacity:1;transform:none}.foto .bolha{opacity:1;transform:none}
+.foto .peca .lin{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.sobe,.bolha,.peca .lin{opacity:1;transform:none}}
+
+/* ---------- celular ---------- */
+@media (max-width:860px){
+  .nav nav{display:none}
+  .nav .miolo{gap:10px}.nav .entrar{margin-left:auto}   /* sem os links, Entrar e tema vão para a ponta direita */
+  .sec{padding:84px 0}
+  .miolo{padding:0 16px}
+  .bento{grid-template-columns:1fr}.b.l2,.b.l3,.b.l4{grid-column:auto}
+  .b{min-height:0;padding:28px}
+  .b.l4 .txt{max-width:none}
+  .peca{position:relative;right:auto;top:auto;bottom:auto;width:100%;margin-top:22px}
+  .agente{grid-template-columns:1fr;gap:56px}
+  .g-fila{gap:10px}
+  .numeros{grid-template-columns:1fr 1fr}
+  .promessas,.linha-tempo{grid-template-columns:1fr}
+  .passo::before{display:none}
+  .hA .palco .pc-h{display:none}
+  .hA .palco .fone-h{position:relative;right:auto;bottom:auto;width:78%;max-width:320px;margin:0 auto}
+  .hB .palco{min-height:0}.hB .palco .fone-h{width:78%;max-width:320px}
+  .bolha{display:none}
+  .final{border-radius:28px;padding:60px 20px}
+}
+</style>
+<noscript><style>.sobe{opacity:1;transform:none}</style></noscript>
+</head>
+<body class="hA">
+
+<header class="nav" id="nav"><div class="miolo">
+  <a class="marca" href="#topo"><svg width="30" height="30" viewBox="0 0 256 256"><rect width="256" height="256" rx="56" fill="#2B2D31"/><polygon transform="translate(48.6 48.6) scale(.62)" fill="#B096FF" points="16,16 240,16 240,64 131.9,64 195.9,128 131.9,192 240,192 240,240 16,240 128,128"/></svg><span>mapp</span></a>
+  <nav><a href="#tudo">O que faz</a><a href="#agente">Agente pessoal</a><a href="#experimente">Experimente</a><a href="#confianca">Seus dados</a><a href="#historia">Como nasceu</a></nav>
+  <a class="bt r entrar" href="https://app.usemapp.tech/" title="O acesso é só para convidados">Entrar <small>só convidados</small></a>
+  <button class="tema" id="tema" aria-label="Trocar tema claro ou escuro"></button>
+</div></header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="topo"><div class="miolo">
+  <svg class="sig" width="92" height="92" viewBox="0 0 256 256"><rect width="256" height="256" rx="56" fill="#2B2D31"/><polygon transform="translate(48.6 48.6) scale(.62)" fill="#B096FF" points="16,16 240,16 240,64 131.9,64 195.9,128 131.9,192 240,192 240,240 16,240 128,128"/></svg>
+  <h1>Seu dia inteiro.<br>Num app <span class="gira" id="gira"><span>só.</span></span></h1>
+  <p class="lead">Finanças, agenda, e-mails, notícias, clima, mercado e um agente pessoal que entende o seu mês. No PC e no celular. <span class="emo">✨</span></p>
+  <div class="botoes"><a class="bt r" href="#convite">Quero um convite <span class="emo">💌</span></a><a class="bt o" href="#experimente">Experimentar aqui</a></div>
+  <div class="palco" id="palco">
+    <div class="moldura-pc pc-h"><div class="tela-esc" id="heroPc"></div></div>
+    <div class="moldura-cel fone-h"><div class="tela-esc" id="heroCel"></div></div>
+    <div class="bolha b1" data-bolha="fatura"><span class="emo">💳</span>Fatura conferida com o total do banco</div>
+    <div class="bolha b2" data-bolha="agenda"><span class="emo">📅</span>Compromisso de hoje em 1h 20min</div>
+    <div class="bolha b3" data-bolha="mercado"><span class="emo">🛒</span>Cupom do mercado lido, item por item</div>
+    <span class="aviso-ex">Demonstração com dados de exemplo</span>
+  </div>
+</div></section>
+
+<!-- ============ ESTEIRA ============ -->
+<div class="esteira" aria-hidden="true"><div class="trilho" id="t1"></div><div class="trilho volta" id="t2"></div></div>
+
+<!-- ============ TUDO ============ -->
+<section class="sec" id="tudo"><div class="miolo">
+  <p class="sobretit sobe">Tudo no mesmo lugar</p>
+  <h2 class="tit sobe">Chega de pular<br>de app em app. <span class="emo">🙌</span></h2>
+  <p class="lead sobe">O mapp junta o que você abre todo dia num app só, montado do seu jeito e com as suas informações. Único como você. Bonito no PC, prático no bolso.</p>
+  <div class="bento">
+    <div class="b l4 sobe"><div class="txt"><div class="ic c0"><span class="emo">💸</span></div>
+      <h3>Seu dinheiro, finalmente claro.</h3><p>Faturas, extrato, boletos, rendas e assinaturas, com o resumo do mês num relance. Cada fatura é conferida com o total que o banco imprimiu.</p></div>
+      <div class="peca" aria-hidden="true">
+        <div class="lin" style="animation-delay:.2s"><span class="q c0"><span class="emo">🏠</span></span><div><b>Moradia</b><small>3 lançamentos</small></div><span class="v">R$ 1.850,00</span></div>
+        <div class="lin" style="animation-delay:.35s"><span class="q c2"><span class="emo">🛒</span></span><div><b>Mercado</b><small>9 lançamentos</small></div><span class="v">R$ 812,40</span></div>
+        <div class="lin" style="animation-delay:.5s"><span class="q c3"><span class="emo">🍔</span></span><div><b>Restaurantes</b><small>12 lançamentos</small></div><span class="v">R$ 312,40</span></div>
+        <div class="lin" style="animation-delay:.65s"><span class="q c1"><span class="emo">✅</span></span><div><b>Fatura conferida</b><small>bate com o total impresso</small></div></div>
+      </div></div>
+    <div class="b l2 sobe atraso1"><div class="ic c2"><span class="emo">📅</span></div>
+      <h3>Agenda em dia.</h3><p>A sua agenda do Google, com os compromissos da semana à vista e o próximo contando o tempo.</p>
+      <div class="chips"><span class="chip"><span class="emo">⏱️</span>em 1h 20min</span></div></div>
+    <div class="b l2 sobe"><div class="ic c1"><span class="emo">✉️</span></div>
+      <h3>E-mails que importam.</h3><p>O que pede atenção aparece primeiro. Fatura e boleto que chegam por e-mail entram no lugar certo, só dos remetentes que você confirmou.</p></div>
+    <div class="b l4 sobe atraso1"><div class="txt"><div class="ic c3"><span class="emo">🛒</span></div>
+      <h3>O mercado, item por item.</h3><p>Tire uma foto do cupom, confira a leitura e veja quanto foi no café, na carne e no pão de cada mês. <span class="emo">📸</span></p></div>
+      <div class="peca" aria-hidden="true">
+        <div class="lin" style="animation-delay:.2s"><span class="q c3"><span class="emo">☕</span></span><div><b>Café 500 g</b><small>+8% desde outubro</small></div><span class="v">R$ 21,90</span></div>
+        <div class="lin" style="animation-delay:.35s"><span class="q c3"><span class="emo">🥖</span></span><div><b>Pão francês</b><small>0,6 kg</small></div><span class="v">R$ 8,40</span></div>
+        <div class="lin" style="animation-delay:.5s"><span class="q c4"><span class="emo">🥩</span></span><div><b>Carne moída</b><small>1 kg</small></div><span class="v">R$ 32,90</span></div>
+        <div class="lin" style="animation-delay:.65s"><span class="q c2"><span class="emo">🥛</span></span><div><b>Leite</b><small>6 un.</small></div><span class="v">R$ 32,94</span></div>
+      </div></div>
+    <div class="b l3 sobe"><div class="ic c4"><span class="emo">📰</span></div>
+      <h3>Notícias do seu jeito.</h3><p>Você escolhe os temas e as fontes. Nada de feed infinito.</p>
+      <div class="chips"><span class="chip"><span class="emo">⚽</span>Futebol</span><span class="chip"><span class="emo">🏈</span>NFL</span><span class="chip"><span class="emo">💰</span>Economia</span><span class="chip"><span class="emo">🎬</span>Cinema</span></div></div>
+    <div class="b l3 sobe atraso1"><div class="ic c2"><span class="emo">⛅</span></div>
+      <h3>Clima, Wishlist e o que mais você quiser.</h3><p>Você escolhe o que fica à mão na barra, o tema, os assuntos das notícias e a cara do agente. Ninguém tem um mapp igual ao seu. <span class="emo">🎨</span></p>
+      <div class="mini-horas" id="miniHoras" aria-hidden="true"><i></i><span>Agora<em>⛅</em><b>24°</b></span><span>15h<em>☀️</em><b>25°</b></span><span>16h<em>⛅</em><b>25°</b></span><span>17h<em>🌦️</em><b>23°</b></span><span>18h<em>☁️</em><b>22°</b></span><span>19h<em>🌙</em><b>21°</b></span></div></div>
+  </div>
+</div></section>
+
+<!-- ============ AGENTE ============ -->
+<section class="sec baia" id="agente"><div class="miolo">
+  <div class="centro">
+    <p class="sobretit sobe">Agente pessoal</p>
+    <h2 class="tit sobe">Pergunte. Ele resolve.</h2>
+    <p class="lead sobe">Um agente de IA que conhece o seu mês. Responde, organiza e, com o seu ok, mexe na agenda, na wishlist e nas categorias. E tem a cara que você escolher. <span class="emo">👇</span></p>
+  </div>
+  <div class="agente">
+    <div class="sobe"><div class="galeria" id="galeria"></div></div>
+    <div class="chat sobe atraso1">
+      <div class="cab"><div class="av" id="av"></div><div><b id="nomeAg">Seu agente</b><small>● online</small></div></div>
+      <div class="msgs" id="msgs"></div>
+    </div>
+  </div>
+  <div class="tracos sobe"><span><span class="emo">🎭</span> Nome e jeito de falar seus</span><span><span class="emo">🧠</span> Lembra do que importa</span><span><span class="emo">✅</span> Só age com o seu ok</span><span><span class="emo">🔒</span> Só vê a sua conta</span></div>
+</div></section>
+
+<!-- ============ EXPERIMENTE ============ -->
+<section class="sec faixa" id="experimente"><div class="miolo centro">
+  <p class="sobretit sobe">Experimente</p>
+  <h2 class="tit sobe">Toque e veja por dentro. <span class="emo">👆</span></h2>
+  <p class="lead sobe">Cinco temas e o mesmo app no computador e no celular. Esta é uma demonstração com dados de exemplo: clique no menu, troque de tela, ou deixe o tour mostrar.</p>
+  <div class="abas sobe" id="abas"><span class="pilula" id="pilula"></span><button class="on" data-modo="pc">💻 No PC</button><button data-modo="cel">📱 No celular</button></div>
+  <div class="vitrine sobe" id="vitrine"></div>
+  <div class="controle"><button class="bt" id="btTour">▶ Ver o tour</button><span id="dicaTour">Ou clique em qualquer item do menu.</span></div>
+</div></section>
+
+<!-- ============ NÚMEROS ============ -->
+<section class="sec"><div class="miolo">
+  <p class="sobretit sobe">Em números</p>
+  <h2 class="tit sobe">Pequeno no tamanho.<br>Grande no cuidado.</h2>
+  <div class="numeros">
+    <div class="num sobe"><b data-conta="1000" data-mais="+">0</b><span>testes automáticos conferindo cada mudança</span></div>
+    <div class="num sobe atraso1"><b data-conta="39">0</b><span>testes de ataque rodam antes de cada versão sair</span></div>
+    <div class="num sobe atraso2"><b data-conta="256">0</b><span>bits na chave que cifra a sua conta, no disco e nos backups</span></div>
+    <div class="num sobe"><b data-conta="0" id="nCaras">0</b><span>caras para o seu agente pessoal</span></div>
+    <div class="num sobe atraso1"><b data-conta="5">0</b><span>temas, do claro ao preto, no PC e no celular</span></div>
+    <div class="num sobe atraso2"><b data-conta="0">0</b><span>anúncios. Nunca. <span class="emo">🙅</span></span></div>
+  </div>
+</div></section>
+
+<!-- ============ CONFIANÇA ============ -->
+<section class="sec faixa" id="confianca"><div class="miolo">
+  <p class="sobretit sobe">Seus dados</p>
+  <h2 class="tit sobe">Seu é seu. <span class="emo">🔐</span></h2>
+  <p class="lead sobe">A regra número um do mapp vem antes de prazo e de estética: segurança, dados certos e transparência com você.</p>
+  <div class="promessas">
+    <div class="pr sobe"><div class="ic c0"><span class="emo">🔒</span></div><h3>Cada um na sua conta</h3><p>Cada pessoa convidada entra na própria conta, cifrada com uma senha só dela. O app não tem tela que mostre ao administrador o que é seu.</p></div>
+    <div class="pr sobe atraso1"><div class="ic c1"><span class="emo">✅</span></div><h3>Nada entra sem conferir</h3><p>Toda fatura é conferida com o total que o banco imprimiu. Se não bate, o mapp avisa em vez de esconder.</p></div>
+    <div class="pr sobe atraso2"><div class="ic c2"><span class="emo">🛡️</span></div><h3>Só o que você liberou</h3><p>No Gmail a permissão é só de leitura: o mapp nunca envia, apaga ou altera e-mails. Fatura e boleto, só dos remetentes que você confirmou.</p></div>
+  </div>
+  <p class="lead sobe" style="font-size:16px;max-width:none">Toda proteção tem limite, e os do mapp estão escritos na <a href="privacidade.html" style="color:var(--roxo-forte);font-weight:650">política de privacidade</a>: onde os dados ficam, o que sai para a IA e o que o administrador consegue ou não ver.</p>
+</div></section>
+
+<!-- ============ HISTÓRIA ============ -->
+<section class="sec" id="historia"><div class="miolo">
+  <p class="sobretit sobe">Como nasceu</p>
+  <h2 class="tit sobe">De uma planilha<br>a um app de verdade.</h2>
+  <p class="lead sobe">Um projeto pessoal, construído em parceria com IA, testado todo dia por quem usa.</p>
+  <div class="linha-tempo">
+    <div class="passo sobe"><span class="emo">📊</span><h3>A planilha cansou</h3><p>Conferir fatura na mão todo mês? Não dava mais.</p></div>
+    <div class="passo sobe atraso1"><span class="emo">🤝</span><h3>Feito a quatro mãos</h3><p>Ideias, telas e decisões humanas; código escrito junto com a IA.</p></div>
+    <div class="passo sobe atraso2"><span class="emo">📱</span><h3>Cresceu para o bolso</h3><p>Do PC para o celular, com amigos próximos usando cada um a sua conta.</p></div>
+    <div class="passo sobe atraso3"><span class="emo">🚀</span><h3>E segue evoluindo</h3><p>Novidade quase toda semana, sempre com o mesmo cuidado.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ CONVITE ============ -->
+<section class="sec" id="convite" style="padding-top:0"><div class="miolo">
+  <div class="final sobe">
+    <h2 class="tit">Bora organizar a vida? <span class="emo">🚀</span></h2>
+    <p class="lead">O mapp é só para convidados. Mande um oi e conte o que você quer organizar.</p>
+    <div class="botoes" style="margin-top:30px"><a class="bt r" href="mailto:devops.mapp@gmail.com">Pedir meu convite <span class="emo">💌</span></a></div>
+    <div class="contatos">
+      <a href="mailto:devops.mapp@gmail.com"><svg viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5zm2.2-.5L12 11l6.8-5z"/></svg>E-mail</a>
+      <a href="https://github.com/usemapp" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+      <a href="https://www.linkedin.com/in/victordeoliveira13/" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a>
+    </div>
+  </div>
+  <footer class="rodape"><span>My All-in-one Personal Platform</span><span>·</span><a href="privacidade.html">Política de privacidade</a></footer>
+</div></section>
+</main>
+
+<script>
+const AGENTES = {"droide": ["Droide", "<g transform=\"translate(-.78 -1.35) rotate(-12 12 12)\"><path d=\"M7 10a5 5 0 0 1 10 0\"/><rect x=\"9.2\" y=\"6\" width=\"2.6\" height=\"2.4\" rx=\".6\"/><path d=\"M14.2 8.2h.01\"/><path d=\"M7 10h10v8.5H7z\"/><path d=\"M7 12.2h10\"/><path d=\"M12.5 13.5l2.4 6.3\"/><path d=\"M13 20.5h4.4M5.5 20.5h3.2M7 18.5v2\"/></g>"], "alienigena": ["Alienígena", "<path d=\"M12 3.5c4.5 0 7 3 7 7 0 4-3 8-7 10-4-2-7-6-7-10 0-4 2.5-7 7-7z\"/><path d=\"M8 10.5c1.8.1 2.9 1 3.1 2.3-1.7.1-2.9-.6-3.1-2.3z\"/><path d=\"M16 10.5c-1.8.1-2.9 1-3.1 2.3 1.7.1 2.9-.6 3.1-2.3z\"/><path d=\"M10.5 17h3\"/>"], "fantasma": ["Fantasma", "<path d=\"M6 20.5V11a6 6 0 0 1 12 0v9.5l-2-1.7-2 1.7-2-1.7-2 1.7-2-1.7z\"/><path d=\"M10.8 14.2h2.4\"/><path d=\"M9.5 10.8h.01\"/><path d=\"M14.5 10.8h.01\"/>"], "gato": ["Gato", "<path d=\"M5 9V4l4 2.6a8 8 0 0 1 6 0L19 4v5c1 1 1.5 2.5 1.5 4 0 3.5-3.5 6.2-8.5 6.2S3.5 16.5 3.5 13c0-1.5.5-3 1.5-4z\"/><path d=\"M11.2 14.2l.8.7.8-.7\"/><path d=\"M3 14.5l3.5.4M21 14.5l-3.5.4M3.6 16.6l3.2-.6M20.4 16.6l-3.2-.6\"/><path d=\"M9 11.5h.01\"/><path d=\"M15 11.5h.01\"/>"], "cachorro": ["Cachorro", "<path d=\"M8 5h8c1.5 1 2 3 2 5v3c0 3.5-2.5 6-6 6s-6-2.5-6-6v-3c0-2 .5-4 2-5z\"/><path d=\"M8 5C5.5 5 4 8 4.5 12l2 .5M16 5c2.5 0 4 3 3.5 7l-2 .5\"/><path d=\"M10.5 13.3h3l-1.5 1.8z\"/><path d=\"M12 15.1v1.3M10 16.9c1 .8 3 .8 4 0\"/><path d=\"M9.5 10.6h.01\"/><path d=\"M14.5 10.6h.01\"/>"], "coelho": ["Coelho", "<path d=\"M8.8 9.4C7.2 5.6 7 2 8.8 2.2c1.6.2 2 4 1.6 7.2M15.2 9.4c1.6-3.8 1.8-7.4 0-7.2-1.6.2-2 4-1.6 7.2\"/><path d=\"M7 14.2a5 5 0 0 1 10 0c0 3.6-2 6-5 6s-5-2.4-5-6z\"/><path d=\"M11.1 15.3h1.8l-.9 1z\"/><path d=\"M12 16.3v1M10.8 17.6c.5.5 1.9.5 2.4 0\"/><path d=\"M11 18.6v1.6h2v-1.6\"/><path d=\"M9.9 13.6h.01\"/><path d=\"M14.1 13.6h.01\"/>"], "urso": ["Urso", "<path d=\"M5.800 8.600a2.500 2.500 0 1 1 3.400-3.100M18.200 8.600a2.500 2.500 0 1 0-3.400-3.100\"/><path d=\"M12 5.500c-3.900 0-6.800 2.700-6.800 6.700s2.900 7 6.800 7 6.800-3 6.800-7-2.900-6.700-6.800-6.700z\"/><path d=\"M12 12.300c-2 0-3.200 1.200-3.200 2.600s1.200 2.400 3.200 2.400 3.200-1 3.200-2.400-1.200-2.600-3.200-2.600z\"/><path d=\"M11 13.500h2l-1 1.100z\"/><path d=\"M12 14.600v1M10.800 16.100c.5.4 1.900.4 2.400 0\"/><path d=\"M9.4 10.3h.01\"/><path d=\"M14.6 10.3h.01\"/>"], "pinguim": ["Pinguim", "<path d=\"M12 3c-3.500 0-5.500 3-5.500 7v5c0 3.500 2.500 6 5.500 6s5.500-2.500 5.500-6v-5c0-4-2-7-5.500-7z\"/><path d=\"M12 10.800c-2.200 0-3.500 1.400-3.500 3.700v1c0 2 1.500 3.800 3.500 3.800s3.500-1.800 3.500-3.800v-1c0-2.300-1.300-3.700-3.500-3.700z\"/><path d=\"M10.700 8l1.300 1.600L13.300 8z\"/><path d=\"M6.500 11.500c-2 1.500-2.500 3.500-2 5.500M17.500 11.500c2 1.500 2.500 3.500 2 5.500\"/><path d=\"M9 21.200l-1.600.8M15 21.200l1.600.8\"/><path d=\"M10 6.2h.01\"/><path d=\"M14 6.2h.01\"/>"], "macaco": ["Macaco", "<path d=\"M12 4.500a6 6 0 0 0-6 6V13c0 3.500 2.500 6 6 6s6-2.500 6-6v-2.500a6 6 0 0 0-6-6z\"/><path d=\"M6 9.500a2.200 2.200 0 1 0 0 4.400M18 9.500a2.200 2.200 0 1 1 0 4.400\"/><path d=\"M8.800 10.600c.8-1 2-1 3.200 0 1.200-1 2.400-1 3.200 0 .8 1.800-.4 3.600-1.500 4.400-.7.5-1.200 1.200-1.700 1.800-.5-.6-1-1.300-1.700-1.800-1.100-.8-2.300-2.600-1.500-4.400z\"/><path d=\"M10.800 16.300c.8.5 1.600.5 2.400 0\"/><path d=\"M10.5 11.6h.01\"/><path d=\"M13.5 11.6h.01\"/><path d=\"M11.4 14.1h.01\"/><path d=\"M12.6 14.1h.01\"/>"], "mago": ["Mago", "<path d=\"M12 2.5L7 10.5h10z\"/><path d=\"M5 10.5h14\"/><path d=\"M8.2 10.5v3c0 4 1.7 6.7 3.8 7.7 2.1-1 3.8-3.7 3.8-7.7v-3\"/><path d=\"M9.5 15c1-.8 4-.8 5 0\"/><path d=\"M12 6.5v.01\"/><path d=\"M10.2 12.6h.01\"/><path d=\"M13.8 12.6h.01\"/>"], "samurai": ["Samurai", "<path d=\"M7 12.2V10c0-3 2-4.8 5-4.8s5 1.8 5 4.8v2.2c0 3.2-2.2 5.6-5 5.6s-5-2.4-5-5.6z\"/><path d=\"M12 3.2a1.3 1.3 0 1 0 0 .01\"/><path d=\"M12 4.5v.7\"/><path d=\"M7 9.4h10\"/><path d=\"M9 12.4l1.5.5M15 12.4l-1.5.5\"/><path d=\"M10 15.3c1.2-.5 2.8-.5 4 0\"/><path d=\"M5 21l7-4.3 7 4.3\"/>"], "viking": ["Viking", "<path d=\"M7 10a5 5 0 0 1 10 0z\"/><path d=\"M7 8.4C4.4 8.3 3 6.4 3.2 3.6c1.5 1.4 2.8 2.400 3.800 3M17 8.4c2.6-.1 4-2 3.800-4.800-1.500 1.400-2.800 2.400-3.800 3\"/><path d=\"M12 10v3\"/><path d=\"M7.800 10v3c0 2 1.200 3.200 2.200 3.800M16.200 10v3c0 2-1.200 3.200-2.200 3.800\"/><path d=\"M8.600 15c.8 3.600 1.800 5.400 3.400 6.500 1.600-1.100 2.600-2.900 3.400-6.500\"/><path d=\"M10.300 14.200c1-.5 2.400-.5 3.400 0\"/><path d=\"M10 12h.01\"/><path d=\"M14 12h.01\"/>"], "cowboy": ["Cowboy", "<path d=\"M8 9.400V6.800c0-1.400 1.500-2.200 4-2.200s4 .8 4 2.200v2.600\"/><path d=\"M10 4.800c.7.7 3.300.7 4 0\"/><path d=\"M2.800 9.400c1.600 2 4.800 2.300 9.200 2.300s7.600-.3 9.200-2.300\"/><path d=\"M8.400 11.700v1.800a3.600 3.600 0 0 0 7.200 0v-1.800\"/><path d=\"M10.600 15c.9.6 2 .6 2.800 0\"/><path d=\"M7.800 17.500l4.200 3 4.200-3\"/><path d=\"M10.3 13h.01\"/><path d=\"M13.7 13h.01\"/>"], "rei": ["Rei", "<path d=\"M7.500 8.600L6.500 3.600l3.300 2.600L12 2.800l2.200 3.400 3.300-2.600-1 5z\"/><path d=\"M7.800 9.800v3.400c0 3.200 1.800 5.400 4.200 6.700 2.400-1.300 4.200-3.500 4.200-6.700V9.800\"/><path d=\"M9.400 14.500c1.300-.9 4-.9 5.200 0\"/><path d=\"M10.500 17c.9.5 2.100.5 3 0\"/><path d=\"M10.2 12.2h.01\"/><path d=\"M13.8 12.2h.01\"/>"], "fada": ["Fada", "<path d=\"M12 6a3.4 3.4 0 1 0 0 6.8A3.4 3.4 0 0 0 12 6z\"/><path d=\"M8.8 11.5C5 9 3.2 12.4 4.8 16.2c1.4 2 3 2 4.6.2M15.2 11.5c3.8-2.5 5.6.9 4 4.7-1.4 2-3 2-4.6.2\"/><path d=\"M10.6 13.8v5.5l1.4 1.5 1.4-1.5v-5.5\"/><path d=\"M18 3.2v3M16.5 4.7h3\"/><path d=\"M11 9.3h.01\"/><path d=\"M13 9.3h.01\"/>"], "unicornio": ["Unicórnio", "<path d=\"M7.5 20.5c0-4.5.8-7.6 2.7-9.6l-1.4-4 2.6 1.4c1.7-.4 3.6.3 5 2l2.2 3.4c.4.7 0 1.4-.8 1.4h-2.1l-1.2 1.2c-.8.9-1.1 2-1.1 3.5v1.7\"/><path d=\"M11.6 5.4L14.2 1l.7 5\"/><path d=\"M8.8 8.4c-2.3 1-3.2 4.2-2.2 8.4M10.2 6.6C8 7.6 6.4 10.2 6.8 14\"/><path d=\"M17.8 12.6l.01 0\"/><path d=\"M15.2 10.4h.01\"/>"], "bruxa": ["Bruxa", "<path d=\"M8.4 10C9.8 7.4 10.6 5.2 11.4 2.5c1 1 1.9 2.2 3 3.4.4 1.5.5 2.7.5 4.1\"/><path d=\"M3.6 10.6h16.8\"/><path d=\"M8.7 8.4h6.4\"/><path d=\"M7.6 11.6v1.6c0 3 2 5 4.4 5.4 2.4-.4 4.4-2.4 4.4-5.4v-1.6\"/><path d=\"M12 12.8l-1 2.4h1.7\"/><path d=\"M7.2 13C5.6 14.6 5.2 17.6 6.2 20.4M16.8 13c1.6 1.6 2 4.6 1 7.4\"/><path d=\"M10.6 16.6c.8.5 1.9.5 2.8 0\"/><path d=\"M10 12.4h.01\"/><path d=\"M14 12.4h.01\"/>"], "elfa": ["Elfa", "<path d=\"M12 4.6a4.6 4.6 0 0 0-4.6 4.6v3.6a4.6 4.6 0 0 0 9.2 0V9.2A4.6 4.6 0 0 0 12 4.6z\"/><path d=\"M7.4 10.2L2.2 7.4l4.4 7.2M16.6 10.2l5.2-2.8-4.4 7.2\"/><path d=\"M7.6 8.6c1.4-1.5 2.8-2.2 4.4-2.2s3 .7 4.4 2.2\"/><path d=\"M12 6.4v1.7\"/><path d=\"M10.6 15.4c.9.6 2.1.6 2.9 0\"/><path d=\"M7.4 13c-1.6 2-1.8 4.8-.8 7.4M16.6 13c1.6 2 1.8 4.8.8 7.4\"/><path d=\"M10 12h.01\"/><path d=\"M14 12h.01\"/>"], "princesa": ["Princesa", "<path d=\"M12 6.500a4.200 4.200 0 1 0 0 8.400 4.200 4.200 0 0 0 0-8.400z\"/><path d=\"M9.200 6.200l.9-2.400 1.900 1.700 1.900-1.700.9 2.400\"/><path d=\"M7.900 10.200c-2.200 2.600-2.200 7-.6 10M16.100 10.200c2.200 2.600 2.200 7 .6 10\"/><path d=\"M10.600 13.200c.8.600 1.900.6 2.800 0\"/><path d=\"M12 4.600v.01\"/><path d=\"M10.4 10.8h.01\"/><path d=\"M13.6 10.8h.01\"/>"], "cientista": ["Cientista", "<path d=\"M12 4.600a4.800 4.800 0 0 0-4.800 4.800V12a4.800 4.800 0 0 0 9.600 0V9.400A4.800 4.800 0 0 0 12 4.600z\"/><path d=\"M7.400 7.700C5.400 7 5 5 6.200 3.800M16.600 7.700c2-.7 2.400-2.700 1.200-3.900M12 4.600V2.500\"/><path d=\"M9.800 9.600a1.800 1.800 0 1 0 0 3.600 1.800 1.800 0 0 0 0-3.600zM14.200 9.600a1.800 1.800 0 1 0 0 3.600 1.800 1.800 0 0 0 0-3.600z\"/><path d=\"M11.600 11.400h.8\"/><path d=\"M10.700 15.200c.8.500 1.800.5 2.600 0\"/><path d=\"M4.500 21l2.200-4.400 5.300 2.400 5.300-2.400 2.200 4.400\"/>"]};
+const ICONES = {"dash": "<svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"3\" width=\"7.5\" height=\"9\" rx=\"2\"/><rect x=\"13.5\" y=\"3\" width=\"7.5\" height=\"5.5\" rx=\"2\"/><rect x=\"13.5\" y=\"12\" width=\"7.5\" height=\"9\" rx=\"2\"/><rect x=\"3\" y=\"15.5\" width=\"7.5\" height=\"5.5\" rx=\"2\"/></svg>", "config": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z\"/></svg>", "mais": "<svg viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\"/></svg>", "agenda": "<svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"3\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/><circle cx=\"12\" cy=\"15\" r=\"2.200\"/></svg>", "casa": "<svg viewBox=\"0 0 24 24\"><path d=\"M3 11l9-7 9 7\"/><path d=\"M5 10v10h14V10\"/><path d=\"M10 20v-6h4v6\"/></svg>", "cartao": "<svg viewBox=\"0 0 24 24\"><rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"3\"/><path d=\"M2.5 10h19M6.5 15h4\"/></svg>", "email": "<svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"3\"/><path d=\"M4 7l8 6 8-6\"/></svg>", "upload": "<svg viewBox=\"0 0 24 24\"><path d=\"M12 15V4\"/><path d=\"M7 9l5-5 5 5\"/><path d=\"M5 20h14\"/></svg>", "pessoa": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4 3.600-6.500 8-6.500s8 2.500 8 6.500\"/></svg>", "coracao": "<svg viewBox=\"0 0 24 24\"><path d=\"M12 20s-8-4.800-8-10.500A4.500 4.500 0 0 1 12 7a4.500 4.500 0 0 1 8 2.500C20 15.200 12 20 12 20z\"/></svg>", "jornal": "<svg viewBox=\"0 0 24 24\"><path d=\"M4 5h13v14a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2z\"/><path d=\"M17 9h3v10a2 2 0 0 1-2 2\"/><path d=\"M8 9h5M8 13h5M8 17h3\"/></svg>", "sol": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"4.200\"/><path d=\"M12 2.500v2M12 19.500v2M4.600 4.600l1.400 1.400M18 18l1.400 1.400M2.500 12h2M19.500 12h2M4.600 19.400L6 18M18 6l1.400-1.400\"/></svg>", "lua": "<svg viewBox=\"0 0 24 24\"><path d=\"M20 14.500A8 8 0 1 1 9.500 4a6.500 6.500 0 0 0 10.500 10.500z\"/></svg>", "sol-nuvem": "<svg viewBox=\"0 0 24 24\"><circle class=\"cheio\" cx=\"8\" cy=\"8\" r=\"3.300\"/><path d=\"M8 3.500v1.300M3.500 8h1.300M4.800 4.800l.9.9M11.200 4.800l-.9.9\"/><path d=\"M5.300 10.600A3.300 3.300 0 0 1 11 7.600\"/><path d=\"M8.500 20a4 4 0 0 1-.4-8 5.300 5.300 0 0 1 10.200 1.600A3.300 3.300 0 0 1 17.800 20z\"/></svg>", "carrinho": "<svg viewBox=\"0 0 24 24\"><path d=\"M3 4h2.5l2.200 10.500a1.500 1.500 0 0 0 1.500 1.200h8.300a1.500 1.500 0 0 0 1.500-1.100L21 8H6.300\"/><circle cx=\"10\" cy=\"19.500\" r=\"1.300\"/><circle cx=\"17\" cy=\"19.500\" r=\"1.300\"/></svg>", "local": "<svg viewBox=\"0 0 24 24\"><path d=\"M12 21s-7-6.200-7-11.500a7 7 0 0 1 14 0C19 14.800 12 21 12 21z\"/><circle cx=\"12\" cy=\"9.500\" r=\"2.500\"/></svg>"};
+const svgAg = id => `<svg viewBox="0 0 24 24">${AGENTES[id][1]}</svg>`;
+const ic = n => `<span data-i="${n}">${ICONES[n] || ""}</span>`;
+const icAg = () => `<span data-i="">${svgAg(AGENTES.droide ? "droide" : Object.keys(AGENTES)[0])}</span>`;   /* o agente: a cara padrão do app */
+const FOTO = location.search.includes("foto");
+const QUIETO = FOTO || matchMedia("(prefers-reduced-motion: reduce)").matches;
+const espera = ms => new Promise(r => setTimeout(r, ms));
+const SIGMA = '<svg viewBox="0 0 256 256"><polygon fill="currentColor" points="16,16 240,16 240,64 131.9,64 195.9,128 131.9,192 240,192 240,240 16,240 128,128"/></svg>';
+
+/* variante do topo (proposta): ?hero=a|b|c */
+const hv = (location.search.match(/hero=([abc])/) || [])[1];
+if (hv) document.body.className = "h" + hv.toUpperCase();
+
+/* esteira: as logos do mapp (o Σ nas 8 combinações de cor do guia de marca) */
+const caras = Object.keys(AGENTES);
+document.getElementById("nCaras").dataset.conta = caras.length;
+const logos = ordem => ordem.map(n => `<div class="ic lg lg${n}">${SIGMA}</div>`).join("").repeat(3);
+const f1 = logos([0, 1, 2, 3, 4, 5, 6, 7]), f2 = logos([5, 3, 7, 1, 6, 0, 4, 2]);
+document.getElementById("t1").innerHTML = f1 + f1;
+document.getElementById("t2").innerHTML = f2 + f2;
+
+/* palavra que gira no título */
+const palavras = ["só.", "seu.", "leve.", "lindo."];
+let pi = 0;
+if (!QUIETO) setInterval(() => { pi = (pi + 1) % palavras.length; document.getElementById("gira").innerHTML = `<span>${palavras[pi]}</span>`; }, 2400);
+
+/* =====================================================================================
+   O APP DE DEMONSTRAÇÃO. Tudo aqui é inventado: valores, lugares, compromissos, manchetes.
+   As peças copiam as do app (bandeja, cartão de dentro, deslizante, linha de resumo, barra do celular).
+   ===================================================================================== */
+const brl = c => "R$ " + (c / 100).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+const PESSOAL = [["casa", "Início"], ["jornal", "Notícias"], ["agenda", "Agenda"], ["coracao", "Wishlist"]];
+const FINANCAS = [["dash", "Dashboard"], ["cartao", "Faturas"], ["carrinho", "Mercado"]];
+const HORAS = [["Agora", "⛅", 24], ["15h", "☀️", 25], ["16h", "⛅", 25], ["17h", "🌦️", 23, 20], ["18h", "☁️", 22], ["19h", "🌙", 21], ["20h", "🌙", 20], ["21h", "🌙", 19]];
+const lin = (q, e, t, s, v, k) => `<div class="d-lin d-in d-chega" style="animation-delay:${k * .09 + .1}s"><span class="q ${q}"><span class="emo">${e}</span></span><div class="tx"><b>${t}</b><small>${s}</small></div>${v ? `<span class="val">${v}</span>` : ""}</div>`;
+
+const TELAS_D = {
+  "Início": cel => `
+    ${cel ? "" : `<h2>Início</h2><div class="sub">Quinta-feira, 12 de novembro</div>`}
+    <div style="display:grid;grid-template-columns:${cel ? "1fr" : "1fr 1.5fr"};gap:12px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="d-band d-clima"><div class="d-in agora"><div><div class="temp">24°</div><b>Poucas nuvens</b><div class="mu" style="font-size:11.5px">máx. 27° · mín. 18°</div></div><span class="grande emo">⛅</span><div class="onde mu">${ic("local")}<b style="color:var(--t)">São Paulo</b> qui, 12/11</div></div>
+          <div class="d-horas"><i data-knob></i>${HORAS.map(([h, e, t, c], k) => `<span style="animation-delay:${.25 + k * .05}s">${h}<em class="emo">${e}</em><b>${t}°</b></span>`).join("")}</div></div>
+        ${cel ? "" : `<div class="d-band"><h4><span class="emo">📅</span>Hoje e amanhã</h4>
+          ${lin("azul", "💼", "Reunião de alinhamento", `10:00 · <span class="d-pil">em 1h 20min</span>`, "", 0)}${lin("verde", "🏋️", "Academia", "19:30", "", 1)}${lin("laranja", "🏃", "Corrida no parque", "amanhã · 07:00", "", 2)}</div>`}
+      </div>
+      <div class="d-band"><div class="d-cab"><span class="emo">📋</span>Resumo<small>os mais importantes</small></div>
+        ${lin("laranja", "⚠️", "Restaurantes subiu 18%", "Finanças · R$ 312,40 no mês, contra R$ 264,70 de média", "", 0)}
+        ${lin("verde", "✅", "Fatura conferida", "Cartão principal · bate com o total impresso", "", 1)}
+        ${lin("azul", "💼", "Reunião em 1h 20min", "Agenda · Reunião de alinhamento, 10:00", "", 2)}
+        ${lin("roxo", "📰", "Sua edição do dia saiu", "Notícias · 12 manchetes nos seus temas", "", 3)}
+        ${cel ? "" : lin("rosa", "🎁", "O fone da Wishlist baixou 12%", "Wishlist · agora R$ 791,00", "", 4)}</div>
+    </div>`,
+  "Dashboard": cel => `
+    ${cel ? "" : `<h2>Dashboard</h2><div class="sub">Visão geral das suas finanças · novembro de 2026</div>`}
+    <div class="d-kpis" style="${cel ? "grid-template-columns:1fr 1fr" : ""}">
+      <div class="d-kpi dest" style="${cel ? "grid-column:1/-1" : ""}"><small><span class="emo">💰</span>Saldo do mês</small><div class="v" data-conta-d="322945">R$ 0,00</div><div class="d-barra"><i></i></div><small style="margin-top:6px">65% da renda comprometida</small></div>
+      <div class="d-kpi"><small><span class="emo">💵</span>Renda do mês</small><div class="v" data-conta-d="930000">R$ 0,00</div></div>
+      <div class="d-kpi"><small><span class="emo">💸</span>Gastos do mês</small><div class="v" data-conta-d="547055">R$ 0,00</div></div>
+      ${cel ? "" : `<div class="d-kpi"><small><span class="emo">🛡️</span>Investimento</small><div class="v" data-conta-d="60000">R$ 0,00</div></div>`}
+    </div>
+    <div style="display:grid;grid-template-columns:${cel ? "1fr" : "1.7fr 1fr"};gap:12px;margin-top:12px">
+      <div class="d-band"><h4>Gastos por mês</h4><div class="d-in"><div class="d-graf" style="${cel ? "height:110px" : ""}">${[["jun", 62], ["jul", 71], ["ago", 58], ["set", 80], ["out", 74], ["nov", 66], ["dez", 50]].map(([m, h], k) => `<div><i style="height:${h}%;animation-delay:${.15 + k * .07}s"></i>${m}</div>`).join("")}</div></div></div>
+      ${cel ? "" : `<div class="d-band"><h4>Por categoria</h4><div class="d-in"><div class="d-rosca"></div>
+        ${[["#A07EFF", "Moradia", "34%"], ["#6AAAFF", "Mercado", "21%"], ["#5ADF9C", "Transporte", "15%"], ["#FFB257", "Restaurantes", "12%"], ["#FF8AA5", "Saúde", "10%"]].map(([c, n, p]) => `<div class="d-leg"><i style="background:${c}"></i>${n}<span>${p}</span></div>`).join("")}</div></div>`}
+    </div>`,
+  "Faturas": cel => `
+    ${cel ? "" : `<h2>Faturas</h2><div class="sub">Cada fatura conferida com o total que o banco imprimiu</div>`}
+    <div style="display:grid;grid-template-columns:${cel ? "1fr" : "1fr 1fr"};gap:12px">
+      <div class="d-band"><div class="d-cab"><span class="emo">💳</span>Cartão principal<small>fecha dia 3</small></div>
+        <div class="d-in"><div class="mu" style="font-size:11.5px">Fatura de novembro</div><div style="font-size:26px;font-weight:750;letter-spacing:-.6px" data-conta-d="211553">R$ 0,00</div>
+          <div class="d-lendo"><i></i></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="mu" style="font-size:11px">Total impresso no PDF: R$ 2.115,53</span><span class="d-ok" style="animation-delay:1.4s">✓ Confere</span></div></div>
+        <div style="margin-top:8px">${lin("azul", "🛒", "Supermercado", "08/11", "R$ 286,30", 3)}${lin("laranja", "🍔", "Restaurante", "07/11", "R$ 74,90", 4)}${lin("ciano", "🎬", "Streaming", "05/11 · assinatura", "R$ 39,90", 5)}</div></div>
+      ${cel ? "" : `<div class="d-band"><div class="d-cab"><span class="emo">💳</span>Cartão extra<small>fecha dia 10</small></div>
+        <div class="d-in"><div class="mu" style="font-size:11.5px">Fatura de novembro</div><div style="font-size:26px;font-weight:750;letter-spacing:-.6px" data-conta-d="64210">R$ 0,00</div>
+          <div class="d-lendo"><i style="animation-delay:.3s"></i></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="mu" style="font-size:11px">Total impresso no PDF: R$ 642,10</span><span class="d-ok" style="animation-delay:1.7s">✓ Confere</span></div></div>
+        <div style="margin-top:8px">${lin("rosa", "💊", "Farmácia", "09/11", "R$ 58,40", 3)}${lin("verde", "⛽", "Posto", "06/11", "R$ 210,00", 4)}${lin("roxo", "📦", "Loja on-line", "04/11 · 2/5", "R$ 119,80", 5)}</div></div>`}
+    </div>`,
+  "Mercado": cel => `
+    ${cel ? "" : `<h2>Mercado</h2><div class="sub">O cupom lido item por item, com o preço de cada coisa mês a mês</div>`}
+    <div style="display:grid;grid-template-columns:${cel ? "1fr" : "1.2fr 1fr"};gap:12px">
+      <div class="d-band"><div class="d-cab"><span class="emo">🧾</span>Cupom de 09/11<small>Mercado do bairro</small></div>
+        ${[["laranja", "☕", "Café 500 g", "+8% desde outubro", 2190], ["laranja", "🥖", "Pão francês", "0,6 kg", 840], ["rosa", "🥩", "Carne moída", "1 kg · −5%", 3290], ["azul", "🥛", "Leite integral", "6 un.", 3294], ["verde", "🍌", "Banana", "1,2 kg", 714]].map(([q, e, t, s, v], k) => lin(q, e, t, s, brl(v), k * 2)).join("")}
+        <div style="display:flex;justify-content:space-between;padding:10px 6px 2px;font-weight:750"><span>Total</span><span>R$ 103,28</span></div></div>
+      ${cel ? "" : `<div class="d-band"><h4><span class="emo">📈</span>Café, mês a mês</h4><div class="d-in"><div class="d-graf">${[["jul", 70], ["ago", 72], ["set", 76], ["out", 80], ["nov", 87]].map(([m, h], k) => `<div><i style="height:${h}%;animation-delay:${.6 + k * .08}s;background:#FFB257"></i>${m}</div>`).join("")}</div></div></div>`}
+    </div>`,
+  "Agenda": cel => cel ? `
+    <div class="d-cab" style="margin-top:4px"><span class="emo">📅</span>Agenda<small>9 a 15 de novembro</small></div>
+    <div class="d-dias">${[["seg", 9], ["ter", 10], ["qua", 11], ["qui", 12], ["sex", 13], ["sáb", 14], ["dom", 15]].map(([d, n]) => `<span class="${n === 12 ? "on" : ""}"><small>${d}</small><b>${n}</b></span>`).join("")}</div>
+    <div class="d-band"><h4>Hoje · quinta, 12</h4>${lin("azul", "💼", "Reunião de alinhamento", `10:00 · <span class="d-pil">em 1h 20min</span>`, "", 0)}${lin("verde", "🏋️", "Academia", "19:30", "", 1)}</div>
+    <div class="d-band"><h4>Próximos dias</h4>${lin("roxo", "🍽️", "Jantar com amigos", "sex, 13 · 20:00", "", 2)}${lin("laranja", "🏃", "Corrida no parque", "sáb, 14 · 07:00", "", 3)}${lin("rosa", "⚽", "Jogo do time", "dom, 15 · 16:00", "", 4)}</div>` : `
+    <h2>Agenda</h2><div class="sub">Semana de 9 a 15 de novembro · Google Agenda</div>
+    <div class="d-semana">${[["seg", 9, []], ["ter", 10, [["azul", "09:00", "Dentista"]]], ["qua", 11, [["verde", "19:30", "Academia"]]], ["qui", 12, [["azul", "10:00", "Reunião de alinhamento"], ["verde", "19:30", "Academia"]]], ["sex", 13, [["roxo", "20:00", "Jantar com amigos"]]], ["sáb", 14, [["laranja", "07:00", "Corrida no parque"]]], ["dom", 15, [["rosa", "16:00", "Jogo do time"]]]]
+      .map(([d, n, ev], k) => `<div class="d-dia ${n === 12 ? "hoje" : ""}"><small>${d}</small><b>${n}</b>${ev.map(([c, h, t], j) => `<div class="d-ev" style="background:var(--q-${c});animation-delay:${.15 + k * .06 + j * .1}s"><small>${h}</small><br>${t}</div>`).join("")}</div>`).join("")}</div>`,
+  "Notícias": cel => `
+    ${cel ? "" : `<h2>Notícias</h2><div class="sub">A edição de hoje, só com os seus temas</div>`}
+    <div class="d-temas">${[["⚽", "Futebol", "verde"], ["💰", "Economia", "laranja"], ["🔬", "Ciência", "azul"], ["🎬", "Cinema", "rosa"]].map(([e, n, q], k) => `<button class="d-tema-c ${k ? "" : "on"}"><span class="emo" style="background:var(--q-${q})">${e}</span>${n}</button>`).join("")}</div>
+    <div class="d-capa d-chega">Time da casa vence o clássico com gol nos acréscimos</div>
+    ${lin("verde", "⚽", "Técnico confirma time titular para domingo", "Futebol · há 2 h · 3 fontes", "", 1)}
+    ${lin("laranja", "💰", "Preço do café sobe pelo terceiro mês seguido", "Economia · há 4 h", "", 2)}
+    ${cel ? "" : lin("azul", "🔬", "Sonda registra imagens inéditas de cometa", "Ciência · há 5 h", "", 3)}`,
+  "Wishlist": () => `
+    <h2>Wishlist</h2><div class="sub">O que você quer, com o preço acompanhado</div>
+    <div class="d-band">${lin("roxo", "🎧", "Fone sem fio", "baixou 12% desde a semana passada", "R$ 791,00", 0)}${lin("laranja", "👟", "Tênis de corrida", "preço igual há 2 semanas", "R$ 649,90", 1)}${lin("azul", "🎒", "Mochila de treino", "meta: comprar em dezembro", "R$ 289,00", 2)}${lin("verde", "⌚", "Relógio esportivo", "subiu 4%", "R$ 1.399,00", 3)}</div>`,
+  "Agente": () => `
+    <div class="d-cab" style="margin-top:4px"><span class="q roxo" style="width:30px;height:30px">${icAg()}</span>Seu agente<small>dados de exemplo</small></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="d-msg eu" style="animation-delay:.1s">Quanto já gastei no mercado este mês? 🛒</div>
+      <div class="d-msg ele" style="animation-delay:.6s">R$ 812,40 até agora, 9% a menos que no mês passado. O café subiu, a carne caiu. ☕</div>
+      <div class="d-msg eu" style="animation-delay:1.2s">Marca corrida sábado às 7h 🏃</div>
+      <div class="d-msg ele" style="animation-delay:1.8s">Coloco "Corrida" no sábado, das 7h às 8h. Confirma?<br><span class="d-ok" style="margin-top:6px;animation-delay:2.3s">✓ Confirmado</span></div></div>`,
+  "Mais": () => `
+    <div class="d-cab" style="margin-top:4px">Mais</div>
+    <div class="d-mais">${[["agenda", "Agenda"], ["coracao", "Wishlist"], ["carrinho", "Mercado"], ["cartao", "Faturas"], ["email", "E-mails"], ["sol-nuvem", "Clima"], ["upload", "Sincronização"], ["config", "Ajustes"]].map(([i, n], k) => `<button class="d-lad" data-ir="${n}" style="animation-delay:${k * .04}s"><span>${ic(i)}</span>${n}</button>`).join("")}</div>`,
+};
+
+/* conta os números das telas (o mesmo "rolar até o valor" do app) */
+function contaD(raiz) {
+  raiz.querySelectorAll("[data-conta-d]").forEach(el => {
+    const alvo = +el.dataset.contaD, t0 = performance.now();
+    if (QUIETO) { el.textContent = brl(alvo); return; }
+    const passo = t => { const p = Math.min(1, (t - t0) / 1100); el.textContent = brl(Math.round(alvo * (1 - Math.pow(1 - p, 4)))); if (p < 1) requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  });
+}
+
+class Demo {
+  constructor(caixa, modo) {
+    this.caixa = caixa; this.modo = modo; this.tela = "Início"; this.grupo = "p"; this.tour = null;
+    const d = document.createElement("div"); d.className = "d " + modo; this.d = d;
+    if (modo === "pc") {
+      d.innerHTML = `<aside class="d-menu"><div class="d-ola"><small>BOA TARDE</small><b>Olá <span class="emo">👋</span></b></div>
+        <div class="d-seg"><i></i><button class="on" data-g="p">Pessoal</button><button data-g="f">Finanças</button></div>
+        <div class="d-itens"></div><div class="d-perfil"><span class="av">${ic("pessoa")}</span><div><b>Seu nome</b><small>Gmail conectado</small></div></div></aside>
+        <section class="d-tela"></section>`;
+    } else {
+      d.innerHTML = `<div class="d-cel-topo" style="color:#A07EFF">${SIGMA}</div><div class="d-cel-corpo d-tela"></div>
+        <nav class="d-barra-cel"><i class="d-bb-knob"></i>${[["casa", "Início"], ["jornal", "Notícias"], ["", "Agente"], ["dash", "Dashboard"], ["mais", "Mais"]].map(([i, n]) =>
+          i ? `<button class="d-bb" data-ir="${n}">${ic(i)}${n === "Dashboard" ? "Finanças" : n}</button>` : `<button class="d-bb d-ag" data-ir="Agente" aria-label="Agente"><span>${icAg()}</span></button>`).join("")}</nav>`;
+    }
+    const cur = document.createElement("div"); cur.className = "d-cursor" + (modo === "cel" ? " dedo" : "");
+    if (modo === "pc") cur.innerHTML = '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 2l15 11-6.5 1.2L9.8 21z" fill="#141416" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    d.append(cur); this.cur = cur;
+    caixa.append(d);
+    d.addEventListener("click", e => this.clique(e));
+    d.addEventListener("pointerdown", e => { if (e.isTrusted) this.pararTour(true); });
+    new ResizeObserver(() => this.escala()).observe(caixa);
+    this.montaMenu(); this.ir("Início", true);
+  }
+  escala() { const w = this.caixa.clientWidth; this.k = w / (this.modo === "pc" ? 1100 : 360); this.d.style.transform = `scale(${this.k})`; }
+  montaMenu() {
+    if (this.modo !== "pc") return;
+    const lista = this.grupo === "p" ? PESSOAL : FINANCAS;
+    this.d.querySelector(".d-itens").innerHTML = lista.map(([i, n], k) => `<button class="d-item ${n === this.tela ? "on" : ""}" data-ir="${n}" style="animation-delay:${k * .04}s"><span class="mq">${ic(i)}</span>${n}</button>`).join("");
+    const seg = this.d.querySelector(".d-seg"); seg.classList.toggle("dir", this.grupo === "f");
+    seg.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.g === this.grupo));
+  }
+  ir(nome, primeira) {
+    this.tela = nome;
+    const t = this.d.querySelector(".d-tela");
+    t.innerHTML = `<div class="d-entra" style="display:flex;flex-direction:column;gap:${this.modo === "cel" ? 10 : 0}px">${TELAS_D[nome](this.modo === "cel")}</div>`;
+    contaD(t);
+    const knob = t.querySelector("[data-knob]");                         /* o "Agora" desliza para o lugar, como no app */
+    if (knob && !QUIETO) { knob.style.transition = "none"; knob.style.transform = "translateX(500%)"; requestAnimationFrame(() => requestAnimationFrame(() => { knob.style.transition = ""; knob.style.transform = "none"; })); }
+    if (this.modo === "pc") this.d.querySelectorAll(".d-item").forEach(b => b.classList.toggle("on", b.dataset.ir === nome));
+    else {
+      const bs = [...this.d.querySelectorAll(".d-bb")], alvo = ["Início", "Notícias", "Agente", "Dashboard"].includes(nome) ? nome : "Mais";
+      const i = bs.findIndex(b => b.dataset.ir === alvo);
+      bs.forEach((b, j) => b.classList.toggle("on", j === i && alvo !== "Agente"));
+      const kb = this.d.querySelector(".d-bb-knob"); kb.style.opacity = alvo === "Agente" ? 0 : 1; kb.style.transform = `translateX(${i * 100}%)`;
+    }
+    if (!primeira) document.querySelectorAll(`[data-bolha]`).forEach(b => { if (this === heroPc || this === heroCel) b.classList.toggle("on", BOLHA[nome] === b.dataset.bolha); });
+  }
+  clique(e) {
+    const g = e.target.closest("[data-g]"), item = e.target.closest("[data-ir]");
+    if (g && this.grupo !== g.dataset.g) { this.grupo = g.dataset.g; this.montaMenu(); this.ir(this.grupo === "p" ? "Início" : "Dashboard"); return; }
+    if (item) this.ir(item.dataset.ir);
+  }
+  /* o tour: o cursor anda até o alvo, "toca" e a tela troca */
+  async apontar(sel) {
+    const el = this.d.querySelector(sel); if (!el) return;
+    const r = el.getBoundingClientRect(), b = this.d.getBoundingClientRect(), k = this.k || 1;
+    const x = (r.left - b.left + r.width / 2) / k, y = (r.top - b.top + r.height / 2) / k;
+    this.cur.classList.add("on"); this.cur.style.transform = `translate(${x - (this.modo === "cel" ? 17 : 4)}px, ${y - (this.modo === "cel" ? 17 : 3)}px)`;
+    await espera(900);
+    const tq = document.createElement("i"); tq.className = "d-toque"; tq.style.left = x + "px"; tq.style.top = y + "px"; this.d.append(tq); setTimeout(() => tq.remove(), 700);
+    el.click();
+  }
+  async rodarTour(passos, laco) {
+    if (QUIETO) return;
+    const meu = Symbol(); this.tour = meu;
+    do {
+      for (const [sel, ms] of passos) { if (this.tour !== meu) return; await this.apontar(sel); await espera(ms); }
+    } while (laco && this.tour === meu);
+    if (this.tour === meu) { this.tour = null; this.cur.classList.remove("on"); }
+  }
+  pararTour(pelaPessoa) { this.tour = null; this.cur.classList.remove("on"); if (pelaPessoa && this.aoParar) this.aoParar(); }
+}
+const BOLHA = { "Faturas": "fatura", "Início": "agenda", "Mercado": "mercado" };
+const TOUR_PC = [['[data-g="f"]', 2600], ['[data-ir="Faturas"]', 3200], ['[data-ir="Mercado"]', 3000], ['[data-g="p"]', 2600], ['[data-ir="Notícias"]', 2600], ['[data-ir="Agenda"]', 2800], ['[data-ir="Início"]', 3000]];
+const TOUR_CEL = [['[data-ir="Dashboard"]', 2800], ['.d-bb[data-ir="Mais"]', 1400], ['.d-lad[data-ir="Faturas"]', 3000], ['[data-ir="Agente"]', 3800], ['.d-bb[data-ir="Mais"]', 1400], ['.d-lad[data-ir="Mercado"]', 3000], ['[data-ir="Início"]', 3200]];
+
+/* o topo: a variante A roda o tour do PC e o do celular, a B só o do celular */
+let heroPc = null, heroCel = null;
+if (!document.body.classList.contains("hC")) {
+  heroCel = new Demo(document.getElementById("heroCel"), "cel");
+  if (!document.body.classList.contains("hB")) heroPc = new Demo(document.getElementById("heroPc"), "pc");
+  const larga = matchMedia("(min-width: 861px)").matches;
+  setTimeout(() => { if (heroPc && larga) heroPc.rodarTour(TOUR_PC, true); else heroCel.rodarTour(TOUR_CEL, true); }, 1600);
+  if (heroPc && larga) setTimeout(() => heroCel.rodarTour(TOUR_CEL.slice().reverse().filter(p => !p[0].includes("d-lad") && !p[0].includes("Mais")), true), 4200);
+}
+
+/* Experimente: PC ou celular, livre para clicar; o tour é opcional */
+let modo = matchMedia("(max-width: 860px)").matches ? "cel" : "pc", demo = null;
+const vitrine = document.getElementById("vitrine"), btTour = document.getElementById("btTour");
+function montaModo() {
+  vitrine.className = "vitrine" + (modo === "cel" ? " so-cel" : "");
+  vitrine.innerHTML = modo === "pc" ? `<div class="moldura-pc"><div class="tela-esc" id="expT"></div></div>` : `<div class="moldura-cel"><div class="tela-esc" id="expT"></div></div>`;
+  demo = new Demo(document.getElementById("expT"), modo);
+  demo.aoParar = () => { btTour.textContent = "▶ Ver o tour"; };
+  btTour.textContent = "▶ Ver o tour";
+  document.querySelectorAll("#abas button").forEach(x => x.classList.toggle("on", x.dataset.modo === modo));
+  const on = document.querySelector(`#abas button[data-modo="${modo}"]`), pil = document.getElementById("pilula");
+  pil.style.left = on.offsetLeft + "px"; pil.style.width = on.offsetWidth + "px";
+}
+document.getElementById("abas").addEventListener("click", e => { const b = e.target.closest("button"); if (b && b.dataset.modo !== modo) { modo = b.dataset.modo; montaModo(); } });
+btTour.addEventListener("click", () => {
+  if (demo.tour) { demo.pararTour(); btTour.textContent = "▶ Ver o tour"; return; }
+  btTour.textContent = "❚❚ Parar o tour"; demo.rodarTour(modo === "pc" ? TOUR_PC : TOUR_CEL, false).then(() => { btTour.textContent = "▶ Ver o tour"; });
+});
+montaModo();
+addEventListener("resize", () => { const on = document.querySelector("#abas button.on"), pil = document.getElementById("pilula"); pil.style.left = on.offsetLeft + "px"; pil.style.width = on.offsetWidth + "px"; });
+
+/* o trilho de horas do cartão do Clima: o "Agora" anda devagar pelas horas */
+const mh = document.querySelector("#miniHoras i"); let mi = 0;
+if (!QUIETO) setInterval(() => { mi = (mi + 1) % 6; mh.style.transform = `translateX(calc(${mi * 100}% + ${mi * 2}px))`; }, 1800);
+
+/* galeria do agente: clicar troca a cara e o nome no chat */
+const gal = document.getElementById("galeria"), av = document.getElementById("av"), nomeAg = document.getElementById("nomeAg");
+function escolhe(id) {
+  gal.querySelectorAll(".ag").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  av.innerHTML = svgAg(id); av.classList.remove("pula"); void av.offsetWidth; av.classList.add("pula");
+  nomeAg.textContent = AGENTES[id][0];
+}
+/* na vitrine, só uma amostra (a primeira fileira + Fada e Mago); o número acima continua contando todas */
+const AMOSTRA = [...caras.slice(0, 5), "fada", "mago"].filter((id, k, l) => AGENTES[id] && l.indexOf(id) === k);
+const botoesAg = AMOSTRA.map(id => `<button class="ag" data-id="${id}" aria-label="${AGENTES[id][0]}">${svgAg(id)}</button>`).join("");
+gal.innerHTML = `<div class="g-fila">${botoesAg}</div><p class="g-nota">e mais ${caras.length - AMOSTRA.length} caras para escolher no app ✨</p>`;
+gal.addEventListener("click", e => { const b = e.target.closest(".ag"); if (b) escolhe(b.dataset.id); });
+escolhe(caras.includes("droide") ? "droide" : caras[0]);
+
+/* conversa de exemplo (texto inventado), digitada quando a seção aparece */
+const CONVERSA = [
+  ["eu", "Quanto já gastei no mercado este mês? 🛒"],
+  ["ele", "R$ 812,40 até agora: 9% a menos que no mês passado. O café subiu, a carne caiu. ☕"],
+  ["eu", "Marca corrida sábado às 7h 🏃"],
+  ["ele", "Coloco “Corrida” no sábado, das 7h às 8h, na sua agenda do Google. Confirma?<br><span class='ok'>✓ Confirmado</span>"],
+  ["eu", "Valeu! 🙌"],
+  ["ele", "Bom treino! 💪"]
+];
+const msgs = document.getElementById("msgs");
+let conversou = false;
+if (FOTO) {
+  document.documentElement.classList.add("foto"); conversou = true;
+  const q = location.search; if (q.includes("escuro") || q.includes("claro")) document.documentElement.dataset.theme = q.includes("escuro") ? "dark" : "light";
+  CONVERSA.forEach(([q2, t]) => { const m = document.createElement("div"); m.className = "m " + q2; m.innerHTML = t; msgs.append(m); });
+}
+async function conversa() {
+  if (conversou) return; conversou = true;
+  for (const [quem, txt] of CONVERSA) {
+    if (quem === "ele") { const d = document.createElement("div"); d.className = "digitando"; d.innerHTML = "<i></i><i></i><i></i>"; msgs.append(d); await espera(1100); d.remove(); }
+    else await espera(700);
+    const m = document.createElement("div"); m.className = "m " + quem; m.innerHTML = txt; msgs.append(m);
+  }
+}
+
+/* números que contam */
+function conta(el) {
+  const alvo = +el.dataset.conta, mais = el.dataset.mais || "", t0 = performance.now();
+  if (QUIETO) { el.textContent = alvo.toLocaleString("pt-BR") + mais; return; }
+  const passo = t => { const p = Math.min(1, (t - t0) / 1400), v = Math.round(alvo * (1 - Math.pow(1 - p, 3)));
+    el.textContent = v.toLocaleString("pt-BR") + (p === 1 ? mais : ""); if (p < 1) requestAnimationFrame(passo); };
+  requestAnimationFrame(passo);
+}
+
+/* aparecer ao rolar */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("visivel");
+  e.target.querySelectorAll("[data-conta]").forEach(conta);
+  if (e.target.classList.contains("chat")) conversa();
+  io.unobserve(e.target);
+}), { threshold: .2 });
+document.querySelectorAll(".sobe,.passo").forEach(el => io.observe(el));
+
+/* topo sólido ao rolar (sem vidro: o bento é opaco) e seção ativa */
+const nav = document.getElementById("nav");
+addEventListener("scroll", () => nav.classList.toggle("solido", scrollY > 20), { passive: true });
+const links = [...document.querySelectorAll(".nav nav a")];
+const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting)
+  links.forEach(a => a.classList.toggle("ativo", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("section[id]").forEach(s => io2.observe(s));
+
+/* tema claro/escuro (o app de demonstração troca junto: Claro ↔ Escuro do app) */
+const SOL = ICONES.sol || "", LUA = ICONES.lua || "";
+const raiz = document.documentElement, btTema = document.getElementById("tema");
+const escuro = () => raiz.dataset.theme === "dark";
+const pinta = () => { btTema.innerHTML = escuro() ? SOL : LUA; btTema.querySelector("svg")?.setAttribute("style", "fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round"); };
+btTema.addEventListener("click", () => { raiz.dataset.theme = escuro() ? "light" : "dark"; pinta(); });
+pinta();
+</script>
+</body>
+</html>

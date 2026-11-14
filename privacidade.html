@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mapp · Política de privacidade</title>
+<meta name="description" content="O que o mapp faz com os seus dados, onde eles ficam e os limites de cada proteção.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#2B2D31">
+<link rel="canonical" href="https://usemapp.tech/privacidade.html">
+<link rel="icon" href="icone.png">
+<style>
+:root{
+  --pagina:#F6F5F9; --faixa:#FFFFFF; --tx:#0D0B12; --tx2:#6E6A7C; --linha:#ECE9F2;
+  --roxo:#B096FF; --roxo-forte:#6D4FD1; --roxo-suave:#F0EAFE; --laranja-s:#FEF3E2; --laranja-t:#A86A12;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pagina);color:var(--tx);font:16.5px/1.6 "Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:"Segoe UI Variable Display","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;font-weight:750;letter-spacing:-.02em;margin:0}
+a{color:var(--roxo-forte);font-weight:600;text-decoration:none}
+a:hover{text-decoration:underline}
+.miolo{max-width:760px;margin:0 auto;padding:0 20px}
+.topo{display:flex;align-items:center;height:64px}
+.marca{display:flex;align-items:center;gap:10px;font-weight:750;font-size:19px;letter-spacing:-.02em;color:var(--tx)}
+.marca span{text-box:trim-both ex alphabetic}   /* centraliza o miolo das minúsculas com o Σ */
+@supports not (text-box:trim-both ex alphabetic){.marca span{transform:translateY(-.14em)}}
+.marca:hover{text-decoration:none}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.05;letter-spacing:-.035em;margin-top:38px}
+.data{color:var(--tx2);margin:12px 0 0}
+.resumo{background:var(--faixa);box-shadow:0 1px 2px rgba(20,12,40,.05),0 8px 24px rgba(20,12,40,.05);border-radius:24px;padding:22px 24px;margin:30px 0 0}
+.resumo p{margin:0}.resumo p+p{margin-top:8px}
+h2{font-size:25px;margin:46px 0 0}
+p,ul{margin:12px 0 0}
+ul{padding-left:22px}li{margin-top:8px}
+.limite{background:var(--laranja-s);border-radius:16px;padding:14px 16px}
+.limite b{color:var(--laranja-t)}
+.rodape{margin:60px 0 0;padding:26px 0 60px;border-top:1px solid var(--linha);color:var(--tx2);font-size:14px;display:flex;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="miolo">
+  <header class="topo"><a class="marca" href="index.html"><svg width="30" height="30" viewBox="0 0 256 256" aria-hidden="true"><rect width="256" height="256" rx="56" fill="#2B2D31"/><polygon transform="translate(48.6 48.6) scale(.62)" fill="#B096FF" points="16,16 240,16 240,64 131.9,64 195.9,128 131.9,192 240,192 240,240 16,240 128,128"/></svg><span>mapp</span></a></header>
+<main>
+  <h1>Política de privacidade</h1>
+  <p class="data">Atualizada em 10 de novembro de 2026</p>
+
+  <div class="resumo">
+    <p><b>Em poucas palavras:</b> o mapp é um projeto pessoal, sem anúncios, sem rastreamento e sem venda de dados. Cada
+      pessoa convidada tem a própria conta, cifrada com uma senha só dela.</p>
+    <p>Esta página diz também o que <b>não</b> está protegido. Se algo aqui deixar de ser verdade, é um defeito do app.</p>
+  </div>
+
+  <h2>Quem somos</h2>
+  <p>O mapp (My All-in-one Personal Platform) é um aplicativo pessoal, mantido por uma pessoa (o administrador) para uso
+    próprio e de poucas pessoas convidadas por ele. Não há empresa por trás, não é um serviço aberto ao público e ainda não
+    passou por auditoria externa.</p>
+
+  <h2>Onde ficam os dados</h2>
+  <p>O mapp funciona de um de dois jeitos, e o próprio app diz em qual você está (nos Ajustes, em “Como protegemos”):</p>
+  <ul>
+    <li><b>No computador do administrador.</b> O app roda num computador com Windows e os dados ficam numa pasta local.
+      Quem é convidado usa pelo celular, por uma rede privada (Tailscale). Tokens de acesso e senhas ficam criptografados
+      pelo próprio Windows.</li>
+    <li><b>Num servidor alugado pelo administrador</b> (uma máquina virtual), no endereço <b>app.usemapp.tech</b>. O
+      caminho até o servidor passa pela Cloudflare: ela confere se o seu e-mail está na lista de convidados e leva os
+      pedidos por um túnel, sem nenhuma porta do servidor aberta para a internet. O mapp confere a assinatura da
+      Cloudflare em cada pedido antes de responder. Tokens de acesso ficam cifrados no servidor (AES-256), com a chave
+      fora da pasta de dados.</li>
+  </ul>
+  <p>Nos dois casos, cada pessoa tem uma pasta separada, e a de quem é convidado é cifrada com uma senha só dela: em disco
+    e nos backups, fica ilegível sem essa senha ou o código de recuperação. No servidor alugado, enquanto a conta está
+    destravada, os arquivos abertos ficam só na memória da máquina, e o disco guarda só a cópia cifrada. No computador
+    do administrador, enquanto a conta está destravada, os arquivos ficam abertos no disco. Não existe tela do app que mostre ao
+    administrador os lançamentos, e-mails ou conversas de quem foi convidado: ele vê quem foi convidado e quanto cada
+    pessoa usa da IA.</p>
+  <p class="limite"><b>Limites.</b> Enquanto você usa o app, o servidor precisa ler os seus dados para funcionar; por
+    isso essa proteção não vale contra quem controla a máquina ligada e com a conta destravada. No servidor alugado, é a
+    Cloudflare que abre o HTTPS: ela tem acesso ao tráfego em trânsito (como qualquer serviço desse tipo) e fica sabendo o
+    seu e-mail e de onde você acessa. A empresa que aluga a máquina virtual tem acesso físico a ela. Se você perder a
+    senha e o código de recuperação, a conta precisa ser zerada: nem o administrador consegue recuperar. A conta zerada
+    fica guardada, ainda cifrada, por 7 dias, para você desfazer se lembrar a senha ou achar o código. Depois disso, ela é
+    apagada de vez.</p>
+
+  <h2>O que sai do mapp</h2>
+  <p>Só o que é preciso para cada função:</p>
+  <ul>
+    <li><b>Agente pessoal (IA).</b> Ao conversar com o agente, a pergunta e o que ele precisa consultar para responder
+      (por exemplo totais do mês, lançamentos e, se a pergunta pedir, eventos da agenda e e-mails recentes) vão para a API
+      da Anthropic, que trata esse conteúdo pelas regras dela. Esse conteúdo não vai para o administrador. A API é usada
+      com a chave do administrador (até um limite mensal por pessoa) ou com a do próprio usuário.</li>
+    <li><b>Cupom do mercado.</b> A foto ou o PDF do cupom que você envia vai para a mesma API para ser lido; você confere
+      a leitura antes de guardar.</li>
+    <li><b>Resumo dos e-mails.</b> Se a opção estiver ligada (Ajustes › Google; começa desligada nas contas convidadas),
+      o remetente, o assunto e um trecho dos e-mails recentes vão para a API, até 3 vezes por dia, para montar o aviso do
+      que pede atenção. Sem chave de IA, nada disso sai do mapp.</li>
+    <li><b>Cópia de segurança.</b> Se o administrador ligar a opção do Google Drive, a cópia sai cifrada (AES-256) antes
+      de sair, e o Google não consegue ler.</li>
+    <li><b>Open Finance (opcional).</b> Quem liga usa a própria conta do Pluggy. A senha do banco nunca passa pelo mapp, e
+      ele lê só lançamentos e faturas.</li>
+  </ul>
+
+  <h2>Dados do Google que o mapp acessa</h2>
+  <p>Só com a autorização do usuário, pela tela de login do Google, e só para as funções abaixo:</p>
+  <ul>
+    <li><b>Gmail (somente leitura)</b>: importa faturas e extratos só dos bancos que o usuário declarou e dos remetentes
+      confirmados por ele e autenticados pelo Gmail; lê boletos dos remetentes ligados a cada boleto e notas fiscais em
+      XML; e olha remetente, assunto e trecho dos e-mails recentes para mostrar avisos ao próprio usuário. O mapp nunca
+      envia, apaga ou altera e-mails.</li>
+    <li><b>Google Agenda</b>: mostra os próximos eventos de todas as agendas do usuário, inclusive as compartilhadas
+      com ele. Cria ou apaga um evento só quando o usuário pede e confirma na tela, e só nas agendas dele; não altera
+      eventos e não mexe nas agendas dos outros.</li>
+    <li><b>Google Drive (pasta privada do app, só o administrador)</b>: guarda a cópia de segurança cifrada descrita
+      acima. O mapp não vê nenhum outro arquivo do Drive.</li>
+    <li><b>Nome, e-mail e foto da conta</b>: para mostrar quem está conectado e, no celular, para saber de quem é a
+      conta.</li>
+  </ul>
+
+  <h2>Uso limitado</h2>
+  <p>O uso e a transferência, para qualquer outro aplicativo, de informações recebidas das APIs do Google seguem a
+    <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de Dados do Usuário
+    dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado. Os dados do Google não são usados para
+    publicidade nem para treinar modelos de inteligência artificial.</p>
+
+  <h2>Como remover o acesso e os dados</h2>
+  <p>O usuário pode desconectar o Google no próprio mapp (Ajustes › Google) ou revogar o acesso a qualquer momento em
+    <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>. Quem é
+    convidado pode zerar a própria conta no app (tudo é apagado) ou pedir ao administrador que a remova.</p>
+
+  <h2>Contato</h2>
+  <p><a href="mailto:devops.mapp@gmail.com">devops.mapp@gmail.com</a></p>
+</main>
+  <footer class="rodape"><span>My All-in-one Personal Platform</span><span>·</span><a href="index.html">Voltar ao início</a></footer>
+</div>
+</body>
+</html>
